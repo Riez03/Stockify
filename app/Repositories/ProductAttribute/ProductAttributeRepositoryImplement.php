@@ -32,9 +32,9 @@ class ProductAttributeRepositoryImplement extends Eloquent implements ProductAtt
     }
 
     public function update($id, $data) {
-        $product = $this->model->find($id);
-        $product->update($data);
-        return $product;
+        $attributeProduct = $this->model->find($id);
+        $attributeProduct->update($data);
+        return $attributeProduct;
     }
 
     public function delete($id) {

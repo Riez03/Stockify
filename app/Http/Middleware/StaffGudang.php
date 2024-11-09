@@ -15,6 +15,10 @@ class StaffGudang
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!auth()->check()) {
+            return redirect()->route('auth.login');
+        }
+        
         if(auth()->user()->role == 'Staff Gudang') {
             return $next($request);
         }

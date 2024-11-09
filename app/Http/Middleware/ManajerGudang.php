@@ -15,6 +15,14 @@ class ManajerGudang
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!auth()->check()) {
+            return redirect()->route('auth.login');
+        }
+
+        if (auth()->user()->role == 'Manajer Gudang') {
+            return $next($request);
+        }
+        
         return $next($request);
     }
 }
