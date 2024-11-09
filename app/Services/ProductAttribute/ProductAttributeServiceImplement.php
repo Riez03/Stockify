@@ -18,5 +18,23 @@ class ProductAttributeServiceImplement extends Service implements ProductAttribu
       $this->mainRepository = $mainRepository;
     }
 
-    // Define your custom methods :)
+    public function getAllAttributeProducts() {
+      return $this->mainRepository->all();
+    }
+
+    public function getAttributeProduct($id) {
+      return $this->mainRepository->find($id);
+    }
+
+    public function createAttributeProduct($data) {
+      return $this->mainRepository->create($data);
+    }
+
+    public function updateAttributeProduct($id, $data) {
+      return $this->mainRepository->update($id, $data);
+    }
+
+    public function deleteAttributeProduct($id) {
+      return $this->mainRepository->delete($id);
+    }
 }

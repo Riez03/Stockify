@@ -19,5 +19,26 @@ class ProductAttributeRepositoryImplement extends Eloquent implements ProductAtt
         $this->model = $model;
     }
 
-    
+    public function all() {
+        return $this->model->with('products');
+    }
+
+    public function find($id) {
+        return $this->model->findOrFail($id);
+    }
+
+    public function create($data) {
+        return $this->model->create($data);
+    }
+
+    public function update($id, $data) {
+        $product = $this->model->find($id);
+        $product->update($data);
+        return $product;
+    }
+
+    public function delete($id) {
+        $product = $this->model->find($id);
+        return $product->delete();
+    }
 }
