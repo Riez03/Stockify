@@ -41,15 +41,15 @@
                                   </button>
                                 </form>
                             </x-simple-modal>
-                            <button type="button" class="flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <a href="" role="button" class="flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                 <x-tabler-arrows-split-2 class="w-6 h-5 me-0 -ms-1 md:me-2" />
                                 <span class="hidden md:block">View Attributes</span>
-                            </button>
+                            </a>
                         </div>
-                        <button type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+                        <a href="" role="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
                             <x-tabler-table-export class="w-6 h-5 me-2 -ms-1" />
                             Export
-                        </button>
+                        </a>
                     </div>
                 @endslot
 
