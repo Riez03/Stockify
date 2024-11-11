@@ -22,10 +22,12 @@ class ProductAttributesController extends Controller
     }
 
     public function index() {
-        $productAttribute = $this->productAttributeService->all();
+        $productAttribute = $this->productAttributeService->getAllAttributeProducts();
+        $products = $this->productAttributeService->getAllProducts();
         return view('roles.admin.product.attributes.index', [
             'title' => 'Product Attributes',
             'productAttribute' => $productAttribute,
+            'product' => $products,
         ]);
     }
 

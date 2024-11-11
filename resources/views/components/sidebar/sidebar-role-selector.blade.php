@@ -6,7 +6,7 @@
     <x-dropdown-menu title="Products" icon="heroicon-o-document-duplicate" routeName="products.*">
         <x-sidebar.sidebar-menu-dropdown-item routeName="products.index" title="Product Management" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="categories.index" title="Product Category" />
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Product Attributes" />
+        <x-sidebar.sidebar-menu-dropdown-item routeName="attributes.index" title="Product Attributes" />
     </x-dropdown-menu>
     <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.*">
         <x-sidebar.sidebar-menu-dropdown-item routeName="" title="History Transactions" />

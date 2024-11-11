@@ -14,4 +14,6 @@ interface ProductAttributeService extends BaseService{
     public function updateAttributeProduct($id, $data);
 
     public function deleteAttributeProduct($id);
+
+    public function getAllProducts();
 }
