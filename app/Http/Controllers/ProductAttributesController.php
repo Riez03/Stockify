@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ProductAttribute\ProductAttributeService;
 use Illuminate\Http\Request;
+use App\Models\ProductAttributes;
+use App\Services\ProductAttribute\ProductAttributeService;
 
 class ProductAttributesController extends Controller
 {
@@ -24,6 +25,7 @@ class ProductAttributesController extends Controller
     public function index() {
         $productAttribute = $this->productAttributeService->getAllAttributeProducts();
         $products = $this->productAttributeService->getAllProducts();
+
         return view('roles.admin.product.attributes.index', [
             'title' => 'Product Attributes',
             'productAttribute' => $productAttribute,
@@ -39,20 +41,23 @@ class ProductAttributesController extends Controller
             'title' => 'Attribute Product Created',
             'message' => 'Attribute Product has been created successfully'
         ]);
-        return redirect()->route('product_attributes.index')->with('success', 'Product created successfully.');
+        return redirect()->route('attributes.index')->with('success', 'Product created successfully.');
     }
 
     public function show($id) {
         $productAttribute = $this->productAttributeService->getAttributeProduct($id);
-        return view('', [
+        $attributeOnly = $this->productAttributeService->getAttributeProduct($id)::where('product_id', $id)->get();
+
+        return view('roles.admin.product.attributes.attribute-detail', [
             'title' => 'Product Attribute Detail',
             'productAttribute' => $productAttribute,
+            'attributes' => $attributeOnly,
         ]);
     }
 
     public function edit($id) {
         $productAttribute = $this->productAttributeService->getAttributeProduct($id);
-        return view('', [
+        return view('roles.admin.product.attributes.edit-attribute', [
             'title' => 'Edit Attribute Product',
             'productAttribute' => $productAttribute,
         ]);
@@ -66,7 +71,7 @@ class ProductAttributesController extends Controller
             'title' => 'Attribute Product Updated',
             'message' => 'Attribute Product has been updated successfully'
         ]);
-        return redirect()->route('product_attributes.index')->with('success', 'Attribute Product updated successfully.');
+        return redirect()->route('attributes.index')->with('success', 'Attribute Product updated successfully.');
     }
 
     public function destroy($id) {
@@ -76,6 +81,6 @@ class ProductAttributesController extends Controller
             'title' => 'Attribute Product Deleted',
             'message' => 'Attribute Product has been deleted successfully'
         ]);
-        return redirect()->route('product_attributes.index');
+        return redirect()->route('attributes.index');
     }
 }

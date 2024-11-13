@@ -20,7 +20,7 @@ class ProductAttributeRepositoryImplement extends Eloquent implements ProductAtt
     }
 
     public function all() {
-        return $this->model->with('products');
+        return $this->model->with('products')->simplePaginate(5);
     }
 
     public function find($id) {

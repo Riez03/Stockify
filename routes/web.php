@@ -43,6 +43,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/', [ProductAttributesController::class, 'index'])->name('attributes.index');
         Route::post('/store', [ProductAttributesController::class, 'store'])->name('attributes.store');
         Route::get('/{id}', [ProductAttributesController::class, 'show'])->name('attributes.show');
+        Route::get('/{id}/edit', [ProductAttributesController::class, 'edit'])->name('attributes.edit');
         Route::put('/{id}', [ProductAttributesController::class, 'update'])->name('attributes.update');
         Route::delete('/{id}', [ProductAttributesController::class, 'destroy'])->name('attributes.destroy');
     });
