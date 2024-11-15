@@ -16,8 +16,6 @@ class CategoriesFactory extends Factory
      */
     public function definition(): array
     {
-        $faker = \Faker\Factory::create('en_US');
-        
         return [
             'name' => fake()->word(),
             'description' => fake()->sentence(10),

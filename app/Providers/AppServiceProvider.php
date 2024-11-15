@@ -8,6 +8,8 @@ use App\Services\Product\ProductService;
 use App\Services\Product\ProductServiceImplement;
 use App\Services\ProductAttribute\ProductAttributeService;
 use App\Services\ProductAttribute\ProductAttributeServiceImplement;
+use App\Services\StockTransaction\StockTransactionService;
+use App\Services\StockTransaction\StockTransactionServiceImplement;
 use App\Services\Supplier\SupplierService;
 use App\Services\Supplier\SupplierServiceImplement;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategoryService::class, CategoryServiceImplement::class);
         $this->app->bind(ProductService::class, ProductServiceImplement::class);
         $this->app->bind(ProductAttributeService::class, ProductAttributeServiceImplement::class);
+        $this->app->bind(StockTransactionService::class, StockTransactionServiceImplement::class);
     }
 
     /**

@@ -10,7 +10,7 @@ class StockTransactions extends Model
 {
     use HasFactory;
 
-    protected $table = 'stock_transcations';
+    protected $table = 'stock_transactions';
 
     protected $fillable = [
         'product_id',
@@ -23,10 +23,10 @@ class StockTransactions extends Model
     ];
 
     public function products() : BelongsTo {
-        return $this->belongsTo(Products::class);
+        return $this->belongsTo(Products::class, 'product_id');
     }
 
     public function users() : BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

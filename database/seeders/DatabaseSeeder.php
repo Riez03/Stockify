@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Categories;
+use App\Models\Products;
 use App\Models\Suppliers;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,5 +20,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Categories::factory(5)->create();
         Suppliers::factory(5)->create();
+        Products::factory(2)->create();
     }
 }

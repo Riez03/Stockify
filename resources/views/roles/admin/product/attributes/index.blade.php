@@ -63,7 +63,7 @@
                             <a href="{{ route('attributes.edit', $attribute->id) }}" class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-yellow-300 dark:hover:bg-yellow-400 dark:focus:ring-yellow-800 hover:cursor-pointer">
                               <x-heroicon-s-pencil-square class="w-5 h-5 text-white" />
                             </a>
-                            <a href="{{ route('attributes.show', $attribute->id) }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-800 dark:focus:ring-blue-800 hover:cursor-pointer">
+                            <a href="{{ route('attributes.show', $attribute->product_id) }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-800 dark:focus:ring-blue-800 hover:cursor-pointer">
                               <x-heroicon-s-eye class="w-5 h-5 text-white" />
                             </a>
                             <form action="{{ route('attributes.destroy', $attribute->id) }}" method="POST" style="display: inline" onsubmit="return confirm('Are you sure you want to delete this supplier?');">

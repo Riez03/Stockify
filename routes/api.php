@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductAttributesController;
+use App\Http\Controllers\StockTransactionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update'); 
 //     Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 // });
+
+Route::resource('transaction', StockTransactionsController::class);
