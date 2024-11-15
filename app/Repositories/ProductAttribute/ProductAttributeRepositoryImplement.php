@@ -3,7 +3,7 @@
 namespace App\Repositories\ProductAttribute;
 
 use LaravelEasyRepository\Implementations\Eloquent;
-use App\Models\ProductAttributes;
+use App\Models\ProductAttribute;
 
 class ProductAttributeRepositoryImplement extends Eloquent implements ProductAttributeRepository{
 
@@ -14,7 +14,7 @@ class ProductAttributeRepositoryImplement extends Eloquent implements ProductAtt
     */
     protected $model;
 
-    public function __construct(ProductAttributes $model)
+    public function __construct(ProductAttribute $model)
     {
         $this->model = $model;
     }

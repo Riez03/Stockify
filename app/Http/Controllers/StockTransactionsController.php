@@ -28,7 +28,7 @@ class StockTransactionsController extends Controller
 
     public function index() {
         $transaction = $this->stockTransactionService->getAllStockTransaction();
-        
+
         return view('roles.admin.transaction.index', [
             'title' => 'History Stock Transaction',
             'transaction' => $transaction,
@@ -40,18 +40,12 @@ class StockTransactionsController extends Controller
 
         $this->stockTransactionService->createTransaction($transaction);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Transaction created successfully',
-            'data' => $transaction
-        ], 201);
-
         notify()->preset('user-created', [
             'title' => 'Transaction Created',
             'message' => 'Stock Transaction has been created successfully'
         ]);
 
-        // return redirect()->route('transaction.index')->with('success', 'Stock Transaction created successfully.');
+        return redirect()->route('transaction.index')->with('success', 'Stock Transaction created successfully.');
     }
 
     public function show($id) {

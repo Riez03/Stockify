@@ -49,4 +49,10 @@ Route::group(['middleware' => 'admin'], function () {
     });
 });
 
+Route::group(['middleware' => 'staff'], function () {
+    Route::prefix('staff')->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('staff.dashboard');
+    });
+});
+
 require __DIR__ . '/auth.php';

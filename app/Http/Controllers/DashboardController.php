@@ -29,7 +29,7 @@ class DashboardController extends Controller
                 'title' => 'Dashboard Admin',
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
-            return view('', [
+            return view('roles.staff.index', [
                 'title' => 'Dashboard Staff Gudang',
             ]);
         } elseif (Auth::user()->role == "Manajer Gudang") {

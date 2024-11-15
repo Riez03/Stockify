@@ -19,7 +19,7 @@ class SuppliersFactory extends Factory
         return [
             'name' => fake()->firstName(),
             'email' => fake()->email(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->numerify('08##########'),
             'address' => fake()->address(),
         ];
     }
