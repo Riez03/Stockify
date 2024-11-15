@@ -20,7 +20,7 @@ return new class extends Migration
                 'Keluar'
             ]);
             $table->integer('quantity');
-            $table->date('date')->nullable();
+            $table->date('date');
             $table->enum('status', [
                 'Pending',
                 'Diterima',

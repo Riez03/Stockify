@@ -17,7 +17,7 @@ class CategoriesFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
+            'name' => fake()->sentence(rand(1, 2), false),
             'description' => fake()->sentence(10),
         ];
     }

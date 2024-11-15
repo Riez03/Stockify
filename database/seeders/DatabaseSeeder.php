@@ -4,11 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Categories;
-use App\Models\Products;
-use App\Models\Suppliers;
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,9 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-        Categories::factory(5)->create();
-        Suppliers::factory(5)->create();
-        Products::factory(2)->create();
+        DB::transaction(function () {
+            $this->call([
+                CategoriesSeeder::class,
+                UserSeeder::class,
+                SupplierSeeder::class,
+                ProductsSeeder::class,
+            ]);
+        });
     }
 }

@@ -50,7 +50,6 @@ class StockTransactionsController extends Controller
             'title' => 'Transaction Created',
             'message' => 'Stock Transaction has been created successfully'
         ]);
-        
 
         // return redirect()->route('transaction.index')->with('success', 'Stock Transaction created successfully.');
     }
