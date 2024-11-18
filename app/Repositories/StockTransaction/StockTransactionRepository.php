@@ -10,5 +10,6 @@ interface StockTransactionRepository extends Repository {
     public function create($data);
     public function update($id, $data);
     public function delete($id);
-    public function getByDateRange($startDate, $endDate);
+    public function filterByType($type);
+    public function filterByCriteria($criteria);
 }

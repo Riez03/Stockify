@@ -1,4 +1,4 @@
-@props(['placeholder' => '', 'label' => '', 'name' => '', 'required' => false])
+@props(['placeholder' => '', 'label' => '', 'name' => '', 'required' => false, 'id' => ''])
 
 <div class="col-span-2">
     <label 
@@ -12,9 +12,9 @@
     <select
         name="{{ $name }}" 
         id="{{ $name }}"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        class="bg-gray-50 border border-gray-300 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-700 text-sm rounded-lg block w-full p-2.5"
         {{ $required ? 'required' : '' }}>
-        <option value="">{{ $placeholder }}</option>
+        <option value="" readonly>{{ $placeholder }}</option>
         {{ $slot }}
     </select>
 </div>

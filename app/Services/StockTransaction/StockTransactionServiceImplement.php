@@ -2,6 +2,7 @@
 
 namespace App\Services\StockTransaction;
 
+use App\Repositories\Category\CategoryRepository;
 use LaravelEasyRepository\Service;
 use App\Repositories\StockTransaction\StockTransactionRepository;
 
@@ -12,10 +13,15 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
      * because used in extends service class
      */
      protected $mainRepository;
+     protected $categoryService;
 
-    public function __construct(StockTransactionRepository $mainRepository)
+    public function __construct(
+      StockTransactionRepository $mainRepository,
+      CategoryRepository $categoryRepository
+      )
     {
       $this->mainRepository = $mainRepository;
+      $this->categoryService = $categoryRepository;
     }
 
     public function getAllStockTransaction() {
@@ -37,10 +43,16 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
     public function deleteTransaction($id) {
       return $this->mainRepository->delete($id);
     }
-    
-    public function getStockTransactionByDateRange($startDate, $endDate) {
-      if($startDate && $endDate) {
-        return $this->mainRepository->getByDateRange($startDate, $endDate);
-      }
+
+    public function getAllCategoryByStock() {
+      return $this->categoryService->all();
+    }
+
+    public function getTransactionByType($type) {
+      return $this->mainRepository->filterByType($type);
+    }
+
+    public function getTransactionByCriteria($criteria) {
+      return $this->mainRepository->filterByCriteria($criteria);
     }
 }

@@ -26,12 +26,18 @@ class StockTransactionsController extends Controller
         ];
     }
 
-    public function index() {
-        $transaction = $this->stockTransactionService->getAllStockTransaction();
+    public function index(Request $request) {
+        $categories = $this->stockTransactionService->getAllCategoryByStock();
+        $stockByType = $this->stockTransactionService->getTransactionByType($request->type);
+        $stockByCriteria = $this->stockTransactionService->getTransactionByCriteria(
+            $request->only(['periods', 'categories', 'start_date', 'end_date'])
+        );
 
         return view('roles.admin.transaction.index', [
             'title' => 'History Stock Transaction',
-            'transaction' => $transaction,
+            'category' => $categories,
+            'stockByType' => $stockByType,
+            'stockByCriteria' => $stockByCriteria,
         ]);
     }
 

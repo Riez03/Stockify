@@ -47,4 +47,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 // });
 
-Route::resource('transaction', StockTransactionsController::class);
+// Route::resource('transaction', StockTransactionsController::class);

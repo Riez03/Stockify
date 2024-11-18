@@ -8,8 +8,8 @@
         <x-sidebar.sidebar-menu-dropdown-item routeName="categories.index" title="Product Category" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="attributes.index" title="Product Attributes" />
     </x-dropdown-menu>
-    <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.*">
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="History Transactions" />
+    <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.transaction*">
+        <x-sidebar.sidebar-menu-dropdown-item routeName="stock.index" title="History Transactions" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Stock Opname" />
     </x-dropdown-menu>
     <x-sidebar.sidebar-list href="suppliers.index" label="Supplier Management" icon="heroicon-m-user-group" />
