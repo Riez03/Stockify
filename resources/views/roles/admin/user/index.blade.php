@@ -12,18 +12,15 @@
                   <x-simple-modal id="crud-modal" title="Add User" buttonText="Add Data">
                     <form action="{{ route('users.store') }}" method="POST">
                       @csrf
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                          @foreach ([
-                              ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'placeholder' => 'Input your Name', 'required' => true],
-                              ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'placeholder' => 'Input your Email'],
-                              ['name' => 'address', 'label' => 'Address', 'type' => 'text', 'placeholder' => 'Input your Address'],
-                              ['name' => 'phone', 'label' => 'Phone', 'type' => 'number', 'placeholder' => 'Input your Phone Number'],
-                          ] as $field)
-                              <div class="col-span-2 {{ $loop->index < 2 ? 'sm:col-span-1' : 'col-span-2' }}">
-                                    <label for="{{ $field['name'] }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $field['label'] }}</label>
-                                    <input type="{{ $field['type'] }}" name="{{ $field['name'] }}" id="{{ $field['name'] }}" placeholder="{{ $field['placeholder'] }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" {{ isset($field['required']) ? 'required' : '' }}>
-                              </div>
-                          @endforeach
+                        <div class="gap-4 mb-4 grid-rows-2 space-y-2">
+                          <x-form.input name="name" label="Name" placeholder="Input user name" required />
+                          <x-form.input type="email" name="email" label="Email" placeholder="Input user email" required />
+                          <x-form.input type="password" name="password" label="Password" placeholder="Input password" required />
+                          <x-form.select-option name="role" label="Role" placeholder="Select Role User" required>
+                            <option value="Admin">Admin</option>
+                            <option value="Manajer Gudang">Manajer Gudang</option>
+                            <option value="Staff Gudang">Staff Gudang</option>
+                          </x-form.select-option>
                         </div>
                       <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Add User
