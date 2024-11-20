@@ -9,7 +9,7 @@ class SuppliersController extends Controller
 {
     protected $supplierService;
 
-    public function __construct(SupplierService $supplierService )
+    public function __construct(SupplierService $supplierService)
     {
         $this->supplierService = $supplierService;
     }

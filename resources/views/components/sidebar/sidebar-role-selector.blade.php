@@ -12,11 +12,8 @@
         <x-sidebar.sidebar-menu-dropdown-item routeName="stock.index" title="History Transactions" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Stock Opname" />
     </x-dropdown-menu>
-    <x-sidebar.sidebar-list href="suppliers.index" label="Supplier Management" icon="heroicon-m-user-group" />
-    <x-dropdown-menu title="User" icon="heroicon-s-user" routeName="users.*">
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="User Management" />
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Role Management" />
-    </x-dropdown-menu>
+    <x-sidebar.sidebar-list href="suppliers.index" label="Supplier" icon="heroicon-m-user-group" />
+    <x-sidebar.sidebar-list href="users.index" label="User" icon="heroicon-s-user" />
     <x-dropdown-menu title="Settings" icon="tabler-settings" routeName="settings.*">
         <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Common Settings" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Email Configuration" />

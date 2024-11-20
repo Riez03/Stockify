@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductAttributesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\StockTransactionsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,22 +30,23 @@ Route::get('/maintenance', function () {
 
 Route::group(['middleware' => 'admin'], function () {
     Route::prefix('admin')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('suppliers', SuppliersController::class);
+        Route::resource('users', UserController::class);
 
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductsController::class, 'index'])->name('products.index');
             Route::post('/store', [ProductsController::class, 'store'])->name('products.store');
             Route::get('/{id}', [ProductsController::class, 'show'])->name('products.show');
             Route::put('/{id}', [ProductsController::class, 'update'])->name('products.update');
-            Route::put('/{id}/edit', [ProductsController::class, 'edit'])->name('products.edit');
+            Route::get('/{id}/edit', [ProductsController::class, 'edit'])->name('products.edit');
             Route::delete('/{id}', [ProductsController::class, 'destroy'])->name('products.destroy');
         });
         Route::prefix('products/categories')->group(function () {
             Route::get('/all', [CategoriesController::class, 'index'])->name('categories.index');
             Route::post('/store', [CategoriesController::class, 'store'])->name('categories.store');
-            Route::get('/{id}', [CategoriesController::class, 'show'])->name('categories.show');
-            Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+            Route::get('/{id}/edit', [CategoriesController::class, 'show'])->name('categories.show');
+            Route::put('/{id}/update', [CategoriesController::class, 'update'])->name('categories.update');
             Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
         });
         Route::prefix('products/attributes')->group(function () {
@@ -65,7 +67,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::group(['middleware' => 'staff'], function () {
     Route::prefix('staff')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('staff.dashboard');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 });
 
