@@ -50,7 +50,6 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
         if($type) {
             $query->where('type', $type);
         }
-
         return $query->with(['products', 'users'])->simplePaginate(5);
     }
 
@@ -59,28 +58,30 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
 
         // By Period Date
         if(!empty($criteria['periods'])) {
-            $startDate = now();
-            $endDate = now();
+            $startDate = null;
+            $endDate = null;
 
             switch($criteria['periods']) {
                 case '7 Days':
                     $startDate = now()->subDays(7);
+                    $endDate = now();
                     break;
                 case '30 Days':
                     $startDate = now()->subDays(30);
+                    $endDate = now();
                     break;
                 case '3 Month':
                     $startDate = now()->subMonths(3);
+                    $endDate = now();
                     break;
                 case 'custom':
                     if(!empty($criteria['start_date']) && !empty($criteria['end_date'])) {
                         $startDate = Carbon::parse($criteria['start_date'])->startOfDay();
                         $endDate = Carbon::parse($criteria['end_date'])->endOfDay();
-                    } else {
-                        $query->whereRaw('1 = 0');
                     }
                     break;
             }
+            
             $query->whereBetween('date', [$startDate, $endDate]);
         }
 

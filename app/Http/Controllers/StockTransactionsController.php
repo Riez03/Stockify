@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Services\StockTransaction\StockTransactionService;
 
@@ -26,16 +26,40 @@ class StockTransactionsController extends Controller
         ];
     }
 
+    private function isPdfRequest(Request $request) {
+        return in_array($request->input('action'), ['print-transaction', 'print-stock']);
+    }
+
+    private function handlePdfGenerate(Request $request, $filters) {
+        $action = $request->input('action', 'view');
+
+        if ($action === 'print-transaction') {
+            return $this->stockTransactionService->generatePdfByType($request->type);
+        } elseif ($action === 'print-stock') {
+            return $this->stockTransactionService->generatePdfByCriteria($filters);
+        }
+    }
+
     public function index(Request $request) {
-        $categories = $this->stockTransactionService->getAllCategoryByStock();
+        $categoriesData = $this->stockTransactionService->getAllCategoryByStock();
         $stockByType = $this->stockTransactionService->getTransactionByType($request->type);
-        $stockByCriteria = $this->stockTransactionService->getTransactionByCriteria(
-            $request->only(['periods', 'categories', 'start_date', 'end_date'])
-        );
+        
+        $filters = $request->only(['periods', 'categories', 'start_date', 'end_date']);
+        $stockByCriteria = $this->stockTransactionService->getTransactionByCriteria($filters);
+        
+        if (isset($filters['categories'])) {
+            $categoryName = $filters['categories'];
+            $category = Categories::where('name', $categoryName)->first();
+            $filters['categories'] = $category ? $category->id : null;
+        }
+
+        if($this->isPdfRequest($request)) {
+            return $this->handlePdfGenerate($request, $filters);
+        }
 
         return view('roles.admin.transaction.index', [
             'title' => 'History Stock Transaction',
-            'category' => $categories,
+            'category' => $categoriesData,
             'stockByType' => $stockByType,
             'stockByCriteria' => $stockByCriteria,
         ]);
@@ -81,5 +105,17 @@ class StockTransactionsController extends Controller
 
         $transaction->quantity = $actualQty;
         $transaction->save();
+    }
+
+    public function downloadReportByType(Request $request) {
+        $type = $request->input('type');
+        return $this->stockTransactionService->generatePdfByType($type);
+    }
+
+    public function downloadReportByCriteria(Request $request) {
+        $criteria = $this->stockTransactionService->getTransactionByCriteria(
+            $request->only(['periods', 'categories', 'start_date', 'end_date'])
+        );
+        return $this->stockTransactionService->generatePdfByCriteria($criteria, $request->all());
     }
 }

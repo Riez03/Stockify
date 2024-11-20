@@ -13,4 +13,6 @@ interface StockTransactionService extends BaseService {
     public function getAllCategoryByStock();
     public function getTransactionByType($type);
     public function getTransactionByCriteria($criteria);
+    public function generatePdfByType($type);
+    public function generatePdfByCriteria($criteria);
 }

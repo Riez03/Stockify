@@ -57,6 +57,8 @@ Route::group(['middleware' => 'admin'], function () {
         });
         Route::prefix('stock')->group(function () {
             Route::get('/transaction/history', [StockTransactionsController::class, 'index'])->name('stock.index');
+            Route::get('/transaction/history/generate/stock-report', [StockTransactionsController::class, 'downloadReportByCriteria'])->name('stock.report-type');
+            Route::get('/transaction/history/generate/transaction-report', [StockTransactionsController::class, 'downloadReportByType'])->name('stock.transaction-report');
         });
     });
 });
