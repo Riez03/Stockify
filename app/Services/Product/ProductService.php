@@ -18,4 +18,8 @@ interface ProductService extends BaseService{
     public function getAllCategories();
 
     public function getAllSuppliers();
+
+    public function importFromExcel($file);
+
+    public function exportFromExcel();
 }

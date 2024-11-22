@@ -4,6 +4,7 @@ namespace App\Repositories\Product;
 
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Products;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class ProductRepositoryImplement extends Eloquent implements ProductRepository{
 

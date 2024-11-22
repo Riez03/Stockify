@@ -6,6 +6,7 @@ use App\Models\Categories;
 use App\Models\Suppliers;
 use App\Services\Product\ProductService;
 use Illuminate\Http\Request;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class ProductsController extends Controller
 {
@@ -102,5 +103,28 @@ class ProductsController extends Controller
         ]);
         
         return redirect()->route('products.index');
+    }
+
+    public function importSpreadsheet(Request $request) {
+        $request->validate([
+            'import_file' => 'required|file|mimes:xlsx,csv',
+        ]);
+
+        $importedData = (new FastExcel)->import($request->file('import_file'));
+
+        if ($importedData->isEmpty()) {
+            return redirect()->back()->with('error', 'The imported file is empty or invalid.');
+        }
+        
+        notify()->preset('user-created', [
+            'title' => 'Product Imported',
+            'message' => 'Product has been imported successfully'
+        ]);
+
+        return redirect()->route('products.index')->with('success', 'Product imported successfully.');
+    }
+
+    public function exportSpreadsheet() {
+        return $this->productService->exportFromExcel();
     }
 }
