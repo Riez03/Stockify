@@ -24,9 +24,13 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $activities = session()->get('product_activities', []);
+
         if (Auth::user()->role == 'Admin') {
             return view('roles.admin.index', [
                 'title' => 'Dashboard Admin',
+                'activities' => $activities,
+                
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
             return view('roles.staff.index', [

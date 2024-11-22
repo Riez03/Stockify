@@ -68,9 +68,15 @@ Route::group(['middleware' => 'admin'], function () {
     });
 });
 
+Route::group(['middleware' => 'manajer'], function () {
+    Route::prefix('manajer')->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('manajer.dashboard');
+    });
+});
+
 Route::group(['middleware' => 'staff'], function () {
     Route::prefix('staff')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('staff.dashboard');
     });
 });
 

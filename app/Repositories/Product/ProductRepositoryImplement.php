@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Product;
 
-use LaravelEasyRepository\Implementations\Eloquent;
+use App\Events\ModelActivity;
 use App\Models\Products;
-use Rap2hpoutre\FastExcel\FastExcel;
+use BladeUIKit\Components\DateTime\Carbon;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class ProductRepositoryImplement extends Eloquent implements ProductRepository{
 
@@ -33,17 +34,48 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository{
     }
 
     public function create($data) {
-        return $this->model->create($data);
+        $product = $this->model->create($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'create', 
+            'Products', 
+            $product->name, 
+            'Product has been created successfuly',
+            $product->created_at,
+        ));
+        
+        return $product;
     }
 
     public function update($id, $data) {
         $product = $this->model->find($id);
         $product->update($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'update', 
+            'Products', 
+            $product->name, 
+            'Product has been updated successfuly',
+            $product->created_at,
+        ));
+
         return $product;
     }
 
     public function delete($id) {
         $product = $this->model->find($id);
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'delete', 
+            'Products', 
+            $product->name, 
+            'Product has been deleted successfuly',
+            $product->created_at,
+        ));
+
         return $product->delete();
     }
 }

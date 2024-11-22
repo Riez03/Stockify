@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
-use App\Models\Suppliers;
 use App\Services\Product\ProductService;
 use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -16,12 +14,12 @@ class ProductsController extends Controller
         $this->productService = $productService;
     }
 
-    private function validationRules() {
+    private function validationRules($id = null) {
         return [
             'category_id' => 'required|exists:categories,id',
             'supplier_id' => 'required|exists:suppliers,id',
             'name' => 'required|string|max:255',
-            'sku' => 'required|string|min:8|unique:products,sku,' . request()->route('product'),
+            'sku' => 'required|string|min:8|unique:products,sku,' . $id,
             'description' => 'nullable|string',
             'purchase_price' => 'required|numeric',
             'selling_price' => 'required|numeric',
@@ -80,7 +78,7 @@ class ProductsController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $data = $request->validate($this->validationRules());
+        $data = $request->validate($this->validationRules($id));
 
         if($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');

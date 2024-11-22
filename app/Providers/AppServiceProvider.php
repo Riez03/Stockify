@@ -2,19 +2,19 @@
 
 namespace App\Providers;
 
-use App\Services\Category\CategoryService;
-use App\Services\Category\CategoryServiceImplement;
-use App\Services\Product\ProductService;
-use App\Services\Product\ProductServiceImplement;
-use App\Services\ProductAttribute\ProductAttributeService;
-use App\Services\ProductAttribute\ProductAttributeServiceImplement;
-use App\Services\StockTransaction\StockTransactionService;
-use App\Services\StockTransaction\StockTransactionServiceImplement;
-use App\Services\Supplier\SupplierService;
-use App\Services\Supplier\SupplierServiceImplement;
 use App\Services\User\UserService;
-use App\Services\User\UserServiceImplement;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Product\ProductService;
+use App\Services\Category\CategoryService;
+use App\Services\Supplier\SupplierService;
+use App\Services\User\UserServiceImplement;
+use App\Services\Product\ProductServiceImplement;
+use App\Services\Category\CategoryServiceImplement;
+use App\Services\Supplier\SupplierServiceImplement;
+use App\Services\ProductAttribute\ProductAttributeService;
+use App\Services\StockTransaction\StockTransactionService;
+use App\Services\ProductAttribute\ProductAttributeServiceImplement;
+use App\Services\StockTransaction\StockTransactionServiceImplement;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +36,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }
