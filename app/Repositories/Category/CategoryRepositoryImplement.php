@@ -3,6 +3,7 @@
 namespace App\Repositories\Category;
 
 use App\Models\Categories;
+use App\Events\ModelActivity;
 use LaravelEasyRepository\Implementations\Eloquent;
 
 class CategoryRepositoryImplement extends Eloquent implements CategoryRepository{
@@ -32,18 +33,48 @@ class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
     }
 
     public function create($data) {
-        return $this->model->create($data);
+        $category = $this->model->create($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'create', 
+            'Categories', 
+            $category->name, 
+            'Categories has been created successfuly',
+            $category->created_at,
+        ));
+
+        return $category;
     }
 
     public function update($id, $data) {
-        $supplier = $this->find($id);
-        $supplier->update($data);
-        return $supplier;
+        $category = $this->find($id);
+        $category->update($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'update', 
+            'Categories', 
+            $category->name, 
+            'Categories has been updated successfuly',
+            $category->created_at,
+        ));
+
+        return $category;
     }
 
     public function delete($id) {
-        $supplier = $this->find($id);
-        $supplier->delete();
-        return $supplier;
+        $category = $this->find($id);
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'delete', 
+            'Categories', 
+            $category->name, 
+            'Categories has been deleted successfuly',
+            $category->created_at,
+        ));
+
+        return $category->delete();
     }
 }

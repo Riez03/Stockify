@@ -2,8 +2,9 @@
 
 namespace App\Repositories\Supplier;
 
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Suppliers;
+use App\Events\ModelActivity;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class SupplierRepositoryImplement extends Eloquent implements SupplierRepository {
 
@@ -31,18 +32,48 @@ class SupplierRepositoryImplement extends Eloquent implements SupplierRepository
     }
 
     public function create($data) {
-        return $this->model->create($data);
+        $supplier = $this->model->create($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'create', 
+            'Supplier', 
+            $supplier->name, 
+            'Supplier has been created successfuly',
+            $supplier->created_at,
+        ));
+
+        return $supplier;
     }
 
     public function update($id, $data) {
         $supplier = $this->find($id);
         $supplier->update($data);
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'update', 
+            'Supplier', 
+            $supplier->name, 
+            'Supplier has been updated successfuly',
+            $supplier->created_at,
+        ));
+
         return $supplier;
     }
 
     public function delete($id) {
         $supplier = $this->find($id);
-        $supplier->delete();
-        return $supplier;
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'delete', 
+            'Supplier', 
+            $supplier->name, 
+            'Supplier has been deleted successfuly',
+            $supplier->created_at,
+        ));
+
+        return $supplier->delete();
     }
 }

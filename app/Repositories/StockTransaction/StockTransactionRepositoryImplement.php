@@ -4,6 +4,7 @@ namespace App\Repositories\StockTransaction;
 
 use Carbon\Carbon;
 use App\Models\Categories;
+use App\Events\ModelActivity;
 use App\Models\StockTransactions;
 use LaravelEasyRepository\Implementations\Eloquent;
 
@@ -30,17 +31,48 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
     }
 
     public function create($data) {
-        return $this->model->create($data);
+        $stock = $this->model->create($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'create', 
+            'Stock_Transaction', 
+            $stock->products->name, 
+            `Stock Product with Type "$stock->type" created successfuly`,
+            $stock->created_at,
+        ));
+
+        return $stock;
     }
 
     public function update($id, $data) {
         $transaction = $this->model->find($id);
         $transaction->update($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'update', 
+            'Stock_Transaction', 
+            $transaction->products->name, 
+            `Stock Product with Type "$transaction->type" updated successfuly`,
+            $transaction->created_at,
+        ));
+
         return $transaction;
     }
     
     public function delete($id) {
         $transaction = $this->model->find($id);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'delete', 
+            'Stock_Transaction', 
+            $transaction->products->name, 
+            `Stock Product with Type "$transaction->type" deleted successfuly`,
+            $transaction->created_at,
+        ));
+
         return $transaction->delete();
     }
 

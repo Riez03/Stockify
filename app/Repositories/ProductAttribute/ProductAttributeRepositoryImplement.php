@@ -2,8 +2,9 @@
 
 namespace App\Repositories\ProductAttribute;
 
-use LaravelEasyRepository\Implementations\Eloquent;
+use App\Events\ModelActivity;
 use App\Models\ProductAttribute;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class ProductAttributeRepositoryImplement extends Eloquent implements ProductAttributeRepository{
 
@@ -28,17 +29,48 @@ class ProductAttributeRepositoryImplement extends Eloquent implements ProductAtt
     }
 
     public function create($data) {
-        return $this->model->create($data);
+        $attribute = $this->model->create($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'create', 
+            'Product_Attributes', 
+            $attribute->name, 
+            'Product attribute has been created successfuly',
+            $attribute->created_at,
+        ));
+
+        return $attribute;
     }
 
     public function update($id, $data) {
         $attributeProduct = $this->model->find($id);
         $attributeProduct->update($data);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'update', 
+            'Product_Attributes', 
+            $attributeProduct->name, 
+            'Product attribute has been updated successfuly',
+            $attributeProduct->created_at,
+        ));
+
         return $attributeProduct;
     }
 
     public function delete($id) {
-        $product = $this->model->find($id);
-        return $product->delete();
+        $attribute = $this->model->find($id);
+
+        event(new ModelActivity(
+            auth()->user(), 
+            'delete', 
+            'Product_Attributes', 
+            $attribute->name, 
+            'Product attribute has been deleted successfuly',
+            $attribute->created_at,
+        ));
+
+        return $attribute->delete();
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Repositories\User;
 
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\User;
+use App\Events\ModelActivity;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class UserRepositoryImplement extends Eloquent implements UserRepository{
 
@@ -28,17 +29,48 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
     }
 
     public function create($data) {
-        return $this->model->create($data);
+        $user =  $this->model->create($data);
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'create', 
+            'User', 
+            $user->name, 
+            'User has been created successfuly',
+            $user->created_at,
+        ));
+
+        return $user;
     }
 
     public function update($id, $data) {
-        $product = $this->model->find($id);
-        $product->update($data);
-        return $product;
+        $user = $this->model->find($id);
+        $user->update($data);
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'update', 
+            'User', 
+            $user->name, 
+            'User has been updated successfuly',
+            $user->created_at,
+        ));
+
+        return $user;
     }
 
     public function delete($id) {
-        $product = $this->model->find($id);
-        return $product->delete();
+        $user = $this->model->find($id);
+        
+        event(new ModelActivity(
+            auth()->user(), 
+            'delete', 
+            'User', 
+            $user->name, 
+            'User has been deleted successfuly',
+            $user->created_at,
+        ));
+
+        return $user->delete();
     }
 }
