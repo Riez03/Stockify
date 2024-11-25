@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StockTransaction\StockTransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class DashboardController extends Controller
 {
-    protected $stockService;
-
-    public function __construct(StockTransactionService $stockService) {
-        $this->stockService = $stockService;
-    }
-
-    public function redirectTo()
-    {
+    public function redirectTo() {
         if (Auth::check()) {
             if (Auth::user()->role == 'Admin') {
                 return redirect('admin/dashboard');
@@ -29,9 +22,17 @@ class DashboardController extends Controller
         return redirect(route('login'));
     }
 
-    public function index()
-    {
-        $activities = session()->get('product_activities', []);
+    public function index() {
+        $filePath = public_path('data/userActivities.json');
+        $activities = [];
+
+        if (File::exists($filePath)) {
+            $activities = json_decode(File::get($filePath), true);
+
+            if (!is_array($activities)) {
+                $activities = [$activities];
+            }
+        }
 
         if (Auth::user()->role == 'Admin') {
             return view('roles.admin.index', [

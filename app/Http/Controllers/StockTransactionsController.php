@@ -65,6 +65,15 @@ class StockTransactionsController extends Controller
         ]);
     }
 
+    public function opnameStockView() {
+        $minimumStock = $this->stockTransactionService->getMinimumQuantityStock();
+
+        return view('roles.admin.transaction.stock-opname', [
+            'title' => 'Stock Opname',
+            'minimumStock' => $minimumStock,
+        ]);
+    }
+
     public function store(Request $request) {
         $transaction = $request->validate($this->transactionValidation());
         $minimumStock = $this->stockTransactionService->getMinimumQuantityStock();
@@ -81,12 +90,6 @@ class StockTransactionsController extends Controller
 
         return redirect()->route('transaction.index')->with('success', 'Stock Transaction created successfully.');
     }
-
-    public function show($id) {}
-
-    public function edit($id) {}
-
-    public function update($id, $data) {}
 
     // public function performStockOpname($productId, $actualQty) {
     //     $transaction = $this->stockTransactionService->find($productId);

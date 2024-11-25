@@ -2,11 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Events\EntityActivity;
 use App\Events\ModelActivity;
-use App\Events\ProductActivity;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\File;
 
 class LogModelActivity
 {
@@ -31,11 +30,17 @@ class LogModelActivity
             'message' => $event->message,
             'timestamp' => $event->timestamp,
         ];
+
+        $filePath = public_path('data/userActivities.json');
     
-        $activities = session()->get('product_activities', []);
-        
-        $activities[] = $activity;
-    
-        session()->put('product_activities', $activities);
+        $activities = [];
+
+        if(File::exists($filePath)) {
+            $activities = json_decode(File::get($filePath), true);
+        }
+
+        $activities = $activity;
+
+        File::put($filePath, json_encode($activities, JSON_PRETTY_PRINT));
     }
 }
