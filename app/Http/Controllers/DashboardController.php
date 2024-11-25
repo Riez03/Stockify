@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\StockTransaction\StockTransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    protected $stockService;
+
+    public function __construct(StockTransactionService $stockService) {
+        $this->stockService = $stockService;
+    }
+
     public function redirectTo()
     {
         if (Auth::check()) {
@@ -30,7 +37,6 @@ class DashboardController extends Controller
             return view('roles.admin.index', [
                 'title' => 'Dashboard Admin',
                 'activities' => $activities,
-                
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
             return view('roles.staff.index', [

@@ -15,4 +15,6 @@ interface StockTransactionService extends BaseService {
     public function getTransactionByCriteria($criteria);
     public function generatePdfByType($type);
     public function generatePdfByCriteria($criteria);
+    public function getMinimumQuantityStock();
+    public function updateMinimumQuantityStock($minQuantity);
 }

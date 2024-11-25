@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Categories;
 use App\Events\ModelActivity;
 use App\Models\StockTransactions;
+use Illuminate\Support\Facades\Artisan;
 use LaravelEasyRepository\Implementations\Eloquent;
 
 class StockTransactionRepositoryImplement extends Eloquent implements StockTransactionRepository {
@@ -128,5 +129,25 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
         }
 
         return $query->with(['products', 'users'])->simplePaginate(5);
+    }
+
+    public function getMinimumStock() {
+        return config('stock.minimum_stock');
+    }
+
+    public function updateMinimumStock($minQuantity) {
+        $path = config_path('stock.php');
+        $content = file_get_contents($path);
+
+        $replaceContent = preg_replace(
+            "/'minimum_stock' => (\d+)/",
+            "'minimum_stock' => {$minQuantity}",
+            $content
+        );
+
+        file_put_contents($path, $replaceContent);
+
+        Artisan::call('config:clear');
+        Artisan::call('config:cache');
     }
 }

@@ -98,4 +98,15 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
 
     return Pdf::loadView('reports.stockReport', compact('data', 'title', 'filters'))->stream("stock-report.pdf");
   }
+
+  public function getMinimumQuantityStock() {
+    return $this->mainRepository->getMinimumStock();
+  }
+
+  public function updateMinimumQuantityStock($minQuantity) {
+    if($minQuantity < 0) {
+      throw new \InvalidArgumentException('Minimum stock must be greater than or equal to zero.');
+    }
+    $this->mainRepository->updateMinimumStock($minQuantity);
+  }
 }

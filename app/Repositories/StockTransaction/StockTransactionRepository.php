@@ -12,4 +12,6 @@ interface StockTransactionRepository extends Repository {
     public function delete($id);
     public function filterByType($type);
     public function filterByCriteria($criteria);
+    public function getMinimumStock();
+    public function updateMinimumStock($minQuantity);
 }
