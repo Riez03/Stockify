@@ -4,35 +4,97 @@
         <h1 class="text-2xl font-medium dark:text-white text-slate-700">{{ $title }}</h1>
 
         <section>
-            <div>
-                <h3 class="font-bold my-3">User Activity</h3>
-                @if (is_array($activities) && count($activities) > 0)
-                    @foreach ($activities as $activity)
-                        <div>
-                            <p><strong>User:</strong> {{ $activity['user_id'] }}</p>
-                            <p><strong>Action:</strong> {{ $activity['action'] }}</p>
-                            <p><strong>Entity:</strong> {{ $activity['entity'] }}</p>
-                            <p><strong>Entity Name:</strong> {{ $activity['entity_name'] }}</p>
-                            <p><strong>Message:</strong> {{ $activity['message'] }}</p>
-                            <p><strong>Timestamp:</strong>
-                                {{ \Carbon\Carbon::parse($activity['timestamp'])->translatedFormat('H:i, l, F Y') }}
-                            </p>
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <!-- Jumlah Produk -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-blue-700">Jumlah Produk</h2>
+                            <x-tabler-box class="h-8 w-8 text-blue-500" />
                         </div>
-                    @endforeach
-                @elseif (is_array($activities) && count($activities) === 0)
-                    <p>Tidak ada aktivitas yang tercatat.</p>
-                @else
-                    <div>
-                        <p><strong>User:</strong> {{ $activities['user_id'] }}</p>
-                        <p><strong>Action:</strong> {{ $activities['action'] }}</p>
-                        <p><strong>Entity:</strong> {{ $activities['entity'] }}</p>
-                        <p><strong>Entity Name:</strong> {{ $activities['entity_name'] }}</p>
-                        <p><strong>Message:</strong> {{ $activities['message'] }}</p>
-                        <p><strong>Timestamp:</strong>
-                            {{ \Carbon\Carbon::parse($activities['timestamp'])->translatedFormat('H:i, l, F Y') }}
-                        </p>
+                        <p class="text-3xl font-bold text-blue-700">1,234</p>
+                        <p class="text-xs font-medium text-blue-700 mt-2">Total produk dalam inventaris</p>
                     </div>
-                @endif
+
+                    <!-- Stok Rendah -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-yellow-500">Total Stok Rendah</h2>
+                            <x-heroicon-o-exclamation-circle class="h-8 w-8 text-yellow-500" />
+                        </div>
+                        <p class="text-3xl font-bold text-yellow-500">23</p>
+                        <p class="text-xs font-medium text-yellow-500 mt-2">Produk perlu diisi ulang</p>
+                    </div>
+
+                    <!-- Transaksi Masuk -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-green-700">Transaksi Masuk</h2>
+                            <x-heroicon-c-bars-arrow-up class="h-8 w-8 text-green-600" />
+                        </div>
+                        <p class="text-3xl font-bold text-green-700">256</p>
+                        <p class="text-xs font-medium text-green-700 mt-2">Dalam 30 hari terakhir</p>
+                    </div>
+
+                    <!-- Transaksi Keluar -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-red-700">Transaksi Keluar</h2>
+                            <x-heroicon-c-bars-arrow-down class="h-8 w-8 text-red-600" />
+                        </div>
+                        <p class="text-3xl font-bold text-red-700">189</p>
+                        <p class="text-xs font-medium text-red-700 mt-2">Dalam 30 hari terakhir</p>
+                    </div>
+                </div>
+
+                <!-- Grafik Stok Barang -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4">Grafik Stok Barang</h2>
+                    <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center"></div>
+                </div>
+
+                <!-- Aktivitas Pengguna Terbaru -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex flex-col md:flex-row items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-gray-700 mb-4 md:mb-0">Aktivitas Pengguna Terbaru</h2>
+                        <div class="flex items-center justify-center space-x-2 md:space-x-4 w-full md:w-auto">
+                            <button id="generate-report" class="bg-blue-500 text-white px-3 py-2.5 mt-2 font-medium rounded text-sm hover:bg-blue-600 transition duration-300 flex items-center justify-center">
+                                <x-tabler-file-invoice class="h-5 w-5 mr-2" />
+                                Generate
+                            </button>
+                            <x-form.select-option name="user-report-period" label="" placeholder="All Periods" class="mt-2 md:mt-0">
+                                <option value="7">7 Last Days</option>
+                                <option value="30">30 Last Days</option>
+                                <option value="90">90 Last Days</option>
+                            </x-form.select-option>
+                        </div>
+                    </div>
+                    <ul class="divide-y divide-gray-200">
+                        @if (is_array($activities) && count($activities) > 0)
+                            @foreach ($activities as $activity)
+                                <div>
+                                    <div class="flex items-center mb-1">
+                                        <div class="flex-grow">
+                                            <p class="text-sm font-medium text-gray-900">{{ $activity['user_id'] }}</p>
+                                            <p class="text-xs text-blue-600 font-semibold uppercase">{{ $activity['action'] }}</p>
+                                        </div>
+                                        <span class="text-xs italic font-semibold text-gray-500">
+                                            {{ \Carbon\Carbon::parse($activity['timestamp'])->diffForHumans() }}
+                                        </span>
+                                    </div>
+                                    <div class="ml-13 pl-3 border-l-2 mt-5 p-2 border-blue-500">
+                                        <p class="text-sm text-gray-600"><span class="font-medium">Entity:</span> {{ $activity['entity'] }}</p>
+                                        <p class="text-sm text-gray-600"><span class="font-medium">Entity Name:</span> {{ $activity['entity_name'] }}</p>
+                                        <p class="text-sm text-gray-600"><span class="font-medium">Message:</span> {{ $activity['message']}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @elseif (is_array($activities) && count($activities) === 0)
+                            <p>Tidak ada aktivitas yang tercatat.</p>
+                        @endif
+                    </ul>
+                </div>
+                
             </div>
         </section>
     </div>

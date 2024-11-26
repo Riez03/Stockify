@@ -23,7 +23,7 @@ class LogModelActivity
     public function handle(ModelActivity $event): void
     {
         $activity = [
-            'user_id' => $event->user->id,
+            'user_id' => $event->user->name,
             'action' => $event->action,
             'entity' => $event->entity,
             'entity_name' => $event->entity_name,

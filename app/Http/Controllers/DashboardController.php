@@ -27,10 +27,14 @@ class DashboardController extends Controller
         $activities = [];
 
         if (File::exists($filePath)) {
-            $activities = json_decode(File::get($filePath), true);
+            $decodedData = json_decode(File::get($filePath), true);
 
-            if (!is_array($activities)) {
-                $activities = [$activities];
+            if (!is_array($decodedData)) {
+                $activities = [$decodedData];
+            } elseif(isset($decodedData[0])) {
+                $activities = $decodedData;
+            } else {
+                $activities = [$decodedData];
             }
         }
 
