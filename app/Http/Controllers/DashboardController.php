@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Product\ProductService;
+use App\Services\StockTransaction\StockTransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class DashboardController extends Controller
 {
+    protected $productService, $stockTransactionService;
+
+    public function __construct(
+        ProductService $productService,
+        StockTransactionService $stockTransactionService,
+    ) {
+        $this->productService = $productService;
+        $this->stockTransactionService = $stockTransactionService;
+    }
+
     public function redirectTo() {
         if (Auth::check()) {
             if (Auth::user()->role == 'Admin') {
@@ -23,6 +35,15 @@ class DashboardController extends Controller
     }
 
     public function index() {
+        $getAllProducts = $this->productService->getAllProducts();
+
+        $getAllStock = $this->stockTransactionService->getAllStockTransaction();
+        $MinQuantity = $this->stockTransactionService->getMinimumQuantityStock();
+
+        $totalLowStock = $getAllStock->filter(function ($stock) use ($MinQuantity) {
+            return $stock->quantity < $MinQuantity; 
+        })->count();
+
         $filePath = public_path('data/userActivities.json');
         $activities = [];
 
@@ -42,6 +63,8 @@ class DashboardController extends Controller
             return view('roles.admin.index', [
                 'title' => 'Dashboard Admin',
                 'activities' => $activities,
+                'totalProducts' => count($getAllProducts),
+                'totalLowStock' => $totalLowStock,
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
             return view('roles.staff.index', [

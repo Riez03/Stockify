@@ -19,9 +19,9 @@
                         <form action="{{ route('stock.update-minimum') }}" method="POST" class="space-y-5 md:space-y-1">
                             @csrf
                             <div>
-                                <label for="min-stock" class="block text-sm font-medium text-gray-700 mb-2">Atur Minimum Stock</label>
+                                <label for="minimum_stock" class="block text-sm font-medium text-gray-700 mb-2">Atur Minimum Stock</label>
                                 <div class="relative">
-                                    <input type="number" id="min-stock" name="min-stock"
+                                    <input type="number" id="minimum_stock" name="minimum_stock"
                                         class="block w-full pr-10 sm:text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="Masukkan jumlah minimum">
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">

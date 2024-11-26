@@ -126,6 +126,11 @@ class StockTransactionsController extends Controller
         ]);
 
         $this->stockTransactionService->updateMinimumQuantityStock($validated['minimum_stock']);
+        notify()->preset('user-created', [
+            'title' => 'Minimum Quantity Updated',
+            'message' => 'Minimum Quantity Stock has been updated successfully'
+        ]);
+
         return redirect()->back()->with('success', 'Stok minimum berhasil diperbarui.');
     }
 }

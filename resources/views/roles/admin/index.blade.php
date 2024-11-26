@@ -1,6 +1,7 @@
 @extends('layouts.default.dashboard')
 @section('content')
     <div class="px-4 pt-6">
+        <x-notify::notify />
         <h1 class="text-2xl font-medium dark:text-white text-slate-700">{{ $title }}</h1>
 
         <section>
@@ -12,7 +13,7 @@
                             <h2 class="text-xl font-semibold text-blue-700">Jumlah Produk</h2>
                             <x-tabler-box class="h-8 w-8 text-blue-500" />
                         </div>
-                        <p class="text-3xl font-bold text-blue-700">1,234</p>
+                        <p class="text-3xl font-bold text-blue-700">{{ $totalProducts }}</p>
                         <p class="text-xs font-medium text-blue-700 mt-2">Total produk dalam inventaris</p>
                     </div>
 
@@ -22,7 +23,7 @@
                             <h2 class="text-xl font-semibold text-yellow-500">Total Stok Rendah</h2>
                             <x-heroicon-o-exclamation-circle class="h-8 w-8 text-yellow-500" />
                         </div>
-                        <p class="text-3xl font-bold text-yellow-500">23</p>
+                        <p class="text-3xl font-bold text-yellow-500">{{ $totalLowStock }}</p>
                         <p class="text-xs font-medium text-yellow-500 mt-2">Produk perlu diisi ulang</p>
                     </div>
 
@@ -60,13 +61,8 @@
                         <div class="flex items-center justify-center space-x-2 md:space-x-4 w-full md:w-auto">
                             <button id="generate-report" class="bg-blue-500 text-white px-3 py-2.5 mt-2 font-medium rounded text-sm hover:bg-blue-600 transition duration-300 flex items-center justify-center">
                                 <x-tabler-file-invoice class="h-5 w-5 mr-2" />
-                                Generate
+                                Generate Report
                             </button>
-                            <x-form.select-option name="user-report-period" label="" placeholder="All Periods" class="mt-2 md:mt-0">
-                                <option value="7">7 Last Days</option>
-                                <option value="30">30 Last Days</option>
-                                <option value="90">90 Last Days</option>
-                            </x-form.select-option>
                         </div>
                     </div>
                     <ul class="divide-y divide-gray-200">
