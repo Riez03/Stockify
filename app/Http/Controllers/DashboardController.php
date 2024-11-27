@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Services\Product\ProductService;
 use App\Services\StockTransaction\StockTransactionService;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class DashboardController extends Controller
 {
-    protected $productService, $stockTransactionService;
+    protected $productService, $stockTransactionService, $userService;
 
     public function __construct(
         ProductService $productService,
         StockTransactionService $stockTransactionService,
+        UserService $userService,
     ) {
         $this->productService = $productService;
         $this->stockTransactionService = $stockTransactionService;
+        $this->userService = $userService;
     }
 
     public function redirectTo() {
@@ -34,35 +37,27 @@ class DashboardController extends Controller
         return redirect(route('login'));
     }
 
+    public function downloadUserActivityReport(Request $request) {
+        $request->input('action', 'view');
+        return $this->userService->generateActivityReport();
+    }
+
     public function index() {
         $getAllProducts = $this->productService->getAllProducts();
+        $activitiesUser = $this->userService->getAllUserActivities();
 
         $getAllStock = $this->stockTransactionService->getAllStockTransaction();
         $MinQuantity = $this->stockTransactionService->getMinimumQuantityStock();
 
         $totalLowStock = $getAllStock->filter(function ($stock) use ($MinQuantity) {
-            return $stock->quantity < $MinQuantity; 
+            return $stock->quantity < $MinQuantity || $stock->quantity == $MinQuantity; 
         })->count();
 
-        $filePath = public_path('data/userActivities.json');
-        $activities = [];
-
-        if (File::exists($filePath)) {
-            $decodedData = json_decode(File::get($filePath), true);
-
-            if (!is_array($decodedData)) {
-                $activities = [$decodedData];
-            } elseif(isset($decodedData[0])) {
-                $activities = $decodedData;
-            } else {
-                $activities = [$decodedData];
-            }
-        }
 
         if (Auth::user()->role == 'Admin') {
             return view('roles.admin.index', [
                 'title' => 'Dashboard Admin',
-                'activities' => $activities,
+                'activities' => $activitiesUser,
                 'totalProducts' => count($getAllProducts),
                 'totalLowStock' => $totalLowStock,
             ]);

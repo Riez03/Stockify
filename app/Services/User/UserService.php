@@ -10,4 +10,6 @@ interface UserService extends BaseService{
     public function createUser($data);  
     public function updateUser($id, $data);
     public function deleteUser($id);
+    public function getAllUserActivities();
+    public function generateActivityReport();
 }

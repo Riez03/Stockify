@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use LaravelEasyRepository\Service;
 use App\Repositories\User\UserRepository;
 
@@ -36,5 +37,18 @@ class UserServiceImplement extends Service implements UserService{
 
     public function deleteUser($id) {
       return $this->mainRepository->delete($id);
+    }
+
+    public function getAllUserActivities() {
+      return $this->mainRepository->userActivities();
+    }
+
+    public function generateActivityReport() {
+      $activities = $this->mainRepository->userActivities();
+
+      return Pdf::loadView('reports.userActivitiesReport', [
+        'data' => $activities,
+        'title' => 'Laporan User Activity',
+      ])->stream("user-activities-report.pdf");
     }
 }

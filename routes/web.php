@@ -67,6 +67,9 @@ Route::group(['middleware' => 'admin'], function () {
             Route::get('/opname', [StockTransactionsController::class, 'opnameStockView'])->name('stock.opname');
             Route::post('update/minimum-quantity', [StockTransactionsController::class, 'updateStockMinimum'])->name('stock.update-minimum');
         });
+
+        /* Define a custom route */
+        Route::get('/user/activities/report', [DashboardController::class, 'downloadUserActivityReport'])->name('user.activities-report');
     });
 });
 
