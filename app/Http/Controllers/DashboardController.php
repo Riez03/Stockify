@@ -49,10 +49,12 @@ class DashboardController extends Controller
         $getAllStock = $this->stockTransactionService->getAllStockTransaction();
         $MinQuantity = $this->stockTransactionService->getMinimumQuantityStock();
 
+        $totalIncomingTransaction = $this->stockTransactionService->getTransactionByTypeAndPeriod('Masuk', 30);
+        $totalOutgoingTransaction = $this->stockTransactionService->getTransactionByTypeAndPeriod('Keluar', 30);
+
         $totalLowStock = $getAllStock->filter(function ($stock) use ($MinQuantity) {
             return $stock->quantity < $MinQuantity || $stock->quantity == $MinQuantity; 
         })->count();
-
 
         if (Auth::user()->role == 'Admin') {
             return view('roles.admin.index', [
@@ -60,6 +62,8 @@ class DashboardController extends Controller
                 'activities' => $activitiesUser,
                 'totalProducts' => count($getAllProducts),
                 'totalLowStock' => $totalLowStock,
+                'incomingTransaction' => $totalIncomingTransaction,
+                'outgoingTransaction' => $totalOutgoingTransaction,
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
             return view('roles.staff.index', [

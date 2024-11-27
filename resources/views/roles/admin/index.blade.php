@@ -7,57 +7,69 @@
         <section>
             <div class="container mx-auto px-4 py-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    <!-- Jumlah Produk -->
+                    {{-- Jumlah Produk --}}
                     <div class="bg-white rounded-lg shadow-md p-6 dark:bg-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xl font-semibold text-blue-500">Jumlah Produk</h2>
+                            <h2 class="text-xl font-semibold text-blue-500">
+                                Jumlah Produk
+                            </h2>
                             <x-tabler-box class="h-8 w-8 text-blue-500" />
                         </div>
                         <p class="text-3xl font-bold text-blue-500">{{ $totalProducts }}</p>
                         <p class="text-xs font-medium text-blue-500 mt-2">Total produk dalam inventaris</p>
                     </div>
 
-                    <!-- Stok Rendah -->
+                    {{-- Stok Rendah --}}
                     <div class="bg-white rounded-lg shadow-md p-6 dark:bg-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xl font-semibold text-yellow-500">Total Stok Rendah</h2>
+                            <h2 class="text-xl font-semibold text-yellow-500">
+                                Total Stok Rendah
+                            </h2>
                             <x-heroicon-o-exclamation-circle class="h-8 w-8 text-yellow-500" />
                         </div>
                         <p class="text-3xl font-bold text-yellow-500">{{ $totalLowStock }}</p>
                         <p class="text-xs font-medium text-yellow-500 mt-2">Produk perlu diisi ulang</p>
                     </div>
 
-                    <!-- Transaksi Masuk -->
+                    {{-- Transaksi Masuk --}}
                     <div class="bg-white rounded-lg shadow-md p-6 dark:bg-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xl font-semibold text-green-700 dark:text-green-400">Transaksi Masuk</h2>
+                            <h2 class="text-xl font-semibold text-green-700 dark:text-green-400">
+                                Transaksi Masuk
+                            </h2>
                             <x-heroicon-c-bars-arrow-up class="h-8 w-8 text-green-600 dark:text-green-400" />
                         </div>
-                        <p class="text-3xl font-bold text-green-700 dark:text-green-400">Undefined</p>
+                        <p class="text-3xl font-bold text-green-700 dark:text-green-400">{{ $incomingTransaction }}</p>
                         <p class="text-xs font-medium text-green-700 mt-2 dark:text-green-400">Dalam 30 hari terakhir</p>
                     </div>
 
-                    <!-- Transaksi Keluar -->
+                    {{-- Transaksi Keluar --}}
                     <div class="bg-white rounded-lg shadow-md p-6 dark:bg-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xl font-semibold text-red-700">Transaksi Keluar</h2>
-                            <x-heroicon-c-bars-arrow-down class="h-8 w-8 text-red-600" />
+                            <h2 class="text-xl font-semibold text-red-700 dark:text-red-500">
+                                Transaksi Keluar
+                            </h2>
+                            <x-heroicon-c-bars-arrow-down class="h-8 w-8 text-red-600 dark:text-red-500" />
                         </div>
-                        <p class="text-3xl font-bold text-red-700">Undefined</p>
-                        <p class="text-xs font-medium text-red-700 mt-2">Dalam 30 hari terakhir</p>
+                        <p class="text-3xl font-bold text-red-700 dark:text-red-500">{{ $outgoingTransaction }}</p>
+                        <p class="text-xs font-medium text-red-700 mt-2 dark:text-red-500">Dalam 30 hari terakhir</p>
                     </div>
                 </div>
 
-                <!-- Grafik Stok Barang -->
+                {{-- Grafik Stok Barang --}}
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 mb-8">
-                    <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">Grafik Stok Barang</h2>
+                    <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">
+                        Grafik Stok Barang
+                    </h2>
                     <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center"></div>
                 </div>
 
-                <!-- Aktivitas Pengguna Terbaru -->
+                {{-- Aktivitas Pengguna Terbaru --}}
                 <div class="bg-white dark:bg-slate-700 rounded-lg shadow-md p-6">
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4">
-                        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4 md:mb-0">Aktivitas Pengguna Terbaru</h2>
+                        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4 md:mb-0">
+                            Aktivitas Pengguna Terbaru
+                        </h2>
                         <div class="flex items-center justify-center space-x-2 md:space-x-4 w-full md:w-auto">
                             <form action="{{ route('user.activities-report') }}" method="GET">
                                 <button id="generate-report" type="submit" class="bg-blue-500 text-white px-3 py-2.5 mt-2 font-medium rounded text-sm hover:bg-blue-600 transition duration-300 flex items-center justify-center">
@@ -67,11 +79,11 @@
                             </form>
                         </div>
                     </div>
-                    <ul class="divide-y divide-gray-200">
+                    <ul>
                         @if (is_array($activities) && count($activities) > 0)
                             @foreach ($activities as $activity)
-                                <div>
-                                    <div class="flex items-center mb-1">
+                                <div class="my-2">
+                                    <div class="flex items-center">
                                         <div class="flex-grow">
                                             <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $activity['user_id'] }}</p>
                                             <p class="text-xs text-blue-600 font-semibold uppercase">{{ $activity['action'] }}</p>

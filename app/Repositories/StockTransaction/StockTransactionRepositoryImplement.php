@@ -150,4 +150,14 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
         Artisan::call('config:clear');
         Artisan::call('config:cache');
     }
+
+    public function countTransactionByTypeAndPeriod($type, $days = 30) {
+        $startDate = now()->subDays($days)->startOfDay();
+        $endDate = now()->endOfDay();
+
+        return $this->model
+            ->where('type', $type)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->count();
+    }
 }
