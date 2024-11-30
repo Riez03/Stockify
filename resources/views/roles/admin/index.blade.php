@@ -57,11 +57,11 @@
                 </div>
 
                 {{-- Grafik Stok Barang --}}
-                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 mb-8">
+                <div class="bg-white dark:bg-slate-700 rounded-lg shadow-md p-6 mb-8 max-w-full overflow-hidden">
                     <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">
                         Grafik Stok Barang
                     </h2>
-                    <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center"></div>
+                    <canvas id="stockChart" class="m-auto w-full"></canvas>
                 </div>
 
                 {{-- Aktivitas Pengguna Terbaru --}}
@@ -108,4 +108,10 @@
             </div>
         </section>
     </div>
+
+    <script type="module">
+        import { generateStockChart } from '/assets/js/charts.js';
+        const transactionData = {!! json_encode($transactionData) !!};
+        generateStockChart(transactionData);
+    </script>    
 @endsection

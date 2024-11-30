@@ -15,4 +15,5 @@ interface StockTransactionRepository extends Repository {
     public function getMinimumStock();
     public function updateMinimumStock($minQuantity);
     public function countTransactionByTypeAndPeriod($type, $days);
+    public function transactionByMonthAndYear($type);
 }

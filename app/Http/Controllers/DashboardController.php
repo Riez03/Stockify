@@ -45,6 +45,7 @@ class DashboardController extends Controller
     public function index() {
         $getAllProducts = $this->productService->getAllProducts();
         $activitiesUser = $this->userService->getAllUserActivities();
+        $transactionLastSixMonth = $this->stockTransactionService->getTransactionByMonthAndYear();
 
         $getAllStock = $this->stockTransactionService->getAllStockTransaction();
         $MinQuantity = $this->stockTransactionService->getMinimumQuantityStock();
@@ -64,6 +65,7 @@ class DashboardController extends Controller
                 'totalLowStock' => $totalLowStock,
                 'incomingTransaction' => $totalIncomingTransaction,
                 'outgoingTransaction' => $totalOutgoingTransaction,
+                'transactionData' => $transactionLastSixMonth,
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
             return view('roles.staff.index', [

@@ -115,4 +115,15 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
   public function getTransactionByTypeAndPeriod($type, $days = 30) {
     return $this->mainRepository->countTransactionByTypeAndPeriod($type, $days);
   }
+
+  public function getTransactionByMonthAndYear() {
+    $transactionIn = $this->mainRepository->transactionByMonthAndYear('masuk');
+    $transactionOut = $this->mainRepository->transactionByMonthAndYear('keluar');
+
+    return [
+      'DataIn' => $transactionIn,
+      'DataOut' => $transactionOut,
+    ];
+  }
+
 }

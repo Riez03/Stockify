@@ -160,4 +160,14 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
             ->whereBetween('date', [$startDate, $endDate])
             ->count();
     }
+
+    public function transactionByMonthAndYear($type) {
+        $record = $this->model->selectRaw('MONTH(date) as month, YEAR(DATE) as year, SUM(quantity) as total_quantity')
+            ->where('type', $type)
+            ->groupBy('month', 'year')
+            ->orderByRaw('year, month')
+            ->get();
+
+        return $record;
+    }
 }

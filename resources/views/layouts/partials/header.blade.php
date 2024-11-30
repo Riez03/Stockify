@@ -21,3 +21,5 @@
         document.documentElement.classList.remove('dark')
     }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

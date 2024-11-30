@@ -18,4 +18,5 @@ interface StockTransactionService extends BaseService {
     public function getMinimumQuantityStock();
     public function updateMinimumQuantityStock($minQuantity);
     public function getTransactionByTypeAndPeriod($type, $days);
+    public function getTransactionByMonthAndYear();
 }
