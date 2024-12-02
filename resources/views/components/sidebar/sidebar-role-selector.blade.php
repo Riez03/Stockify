@@ -14,9 +14,13 @@
     </x-dropdown-menu>
     <x-sidebar.sidebar-list href="suppliers.index" label="Supplier" icon="heroicon-m-user-group" />
     <x-sidebar.sidebar-list href="users.index" label="User" icon="heroicon-s-user" />
-    <x-dropdown-menu title="Settings" icon="tabler-settings" routeName="settings.*">
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Common Settings" />
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="Email Configuration" />
-        <x-sidebar.sidebar-menu-dropdown-item routeName="" title="API Management" />
-    </x-dropdown-menu>
+    <x-sidebar.sidebar-list href="setting.index" label="Settings" icon="tabler-settings" />
+@endif
+
+@if ($userRole == 'Manajer Gudang')
+    
+@endif
+
+@if ($userRole == 'Staff Gudang')
+    
 @endif

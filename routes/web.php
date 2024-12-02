@@ -6,6 +6,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductAttributesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockTransactionsController;
 use App\Http\Controllers\UserController;
 
@@ -68,8 +69,11 @@ Route::group(['middleware' => 'admin'], function () {
             Route::post('update/minimum-quantity', [StockTransactionsController::class, 'updateStockMinimum'])->name('stock.update-minimum');
         });
 
-        /* Define a custom route */
+        // Define a custom route
         Route::get('/user/activities/report', [DashboardController::class, 'downloadUserActivityReport'])->name('user.activities-report');
+
+        Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
     });
 });
 

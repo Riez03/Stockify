@@ -13,6 +13,7 @@ export function generateStockChart(transactionData) {
 
     const addFutureMonths = (uniqueMonths, monthDataMap, count = 6) => {
         const currentMonth = new Date();
+        
         for (let i = 0; i < count; i++) {
             const nextMonth = new Date(currentMonth);
             nextMonth.setMonth(currentMonth.getMonth() + i);
@@ -34,7 +35,8 @@ export function generateStockChart(transactionData) {
                 backgroundColor: "rgba(54, 162, 235, 0.6)",
                 borderColor: "rgba(54, 162, 235, 1)",
                 borderWidth: 1,
-                fill: false,
+                fill: true,
+                tension: 0.5,
             },
             {
                 label: "Stock Barang Keluar",
@@ -42,7 +44,8 @@ export function generateStockChart(transactionData) {
                 backgroundColor: "rgba(255, 99, 132, 0.6)",
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
-                fill: false,
+                fill: true,
+                tension: 0.5,
             },
         ],
     });
@@ -79,7 +82,7 @@ export function generateStockChart(transactionData) {
         data: prepareChartData(uniqueMonths, monthDataMap),
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             plugins: {
                 title: {
                     display: true,

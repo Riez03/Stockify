@@ -14,6 +14,8 @@ use App\Services\Supplier\SupplierServiceImplement;
 use App\Services\ProductAttribute\ProductAttributeService;
 use App\Services\StockTransaction\StockTransactionService;
 use App\Services\ProductAttribute\ProductAttributeServiceImplement;
+use App\Services\Setting\SettingService;
+use App\Services\Setting\SettingServiceImplement;
 use App\Services\StockTransaction\StockTransactionServiceImplement;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductAttributeService::class, ProductAttributeServiceImplement::class);
         $this->app->bind(StockTransactionService::class, StockTransactionServiceImplement::class);
         $this->app->bind(UserService::class, UserServiceImplement::class);
+        $this->app->bind(SettingService::class, SettingServiceImplement::class);
     }
 
     /**

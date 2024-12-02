@@ -7,7 +7,7 @@ use App\Events\ModelActivity;
 use Illuminate\Support\Facades\File;
 use LaravelEasyRepository\Implementations\Eloquent;
 
-class UserRepositoryImplement extends Eloquent implements UserRepository{
+class UserRepositoryImplement extends Eloquent implements UserRepository {
 
     /**
     * Model class to be used in this repository for the common methods inside Eloquent

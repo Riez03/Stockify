@@ -1,8 +1,10 @@
-{
-    "user_id": "Francisca Hamill",
-    "action": "update",
-    "entity": "Products",
-    "entity_name": "Locky",
-    "message": "Product has been updated successfuly",
-    "timestamp": "2024-11-15T05:46:09.000000Z"
-}
+[
+    {
+        "user_id": "Francisca Hamill",
+        "action": "update",
+        "entity": "Products",
+        "entity_name": "Locky",
+        "message": "Product has been updated successfully",
+        "timestamp": "2024-11-15T05:46:09.000000Z"
+    }
+]

@@ -1,3 +1,9 @@
+@php 
+    $setting = app(\App\Services\Setting\SettingService::class)->getSetting();
+    $appTitle = $setting['app_title'];
+    $appLogo = $setting['app_logo'];
+@endphp
+
 <nav class="fixed z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
@@ -17,18 +23,24 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
+
+                {{-- Logo and Name Application --}}
                 <a href="{{ url('/') }}" class="flex ml-2 md:mr-24">
-                    <x-tabler-stack-front class="w-8 h-8 mr-3 text-blue-600" />
-                    <span
-                        class="self-center text-xl text-blue-600 font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Stockify</span>
+                    {{-- <x-tabler-stack-front class="w-8 h-8 mr-3 text-blue-600" /> --}}
+                    <img src="{{ $appLogo }}" alt="Web Logo" class="w-8 h-8 mr-3 text-blue-600">
+                    <span class="self-center text-xl text-blue-600 font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+                        {{ $appTitle }}
+                    </span>
                 </a>
             </div>
+
             <div class="flex items-center">
                 <!-- Search mobile -->
                 <button id="toggleSidebarMobileSearch" type="button"
                     class="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                     <span class="sr-only">Search</span>
                 </button>
+
                 <!-- Dropdown menu -->
                 <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
                     class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
@@ -48,6 +60,7 @@
                     Toggle dark mode
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
+
                 <!-- Profile -->
                 <div class="flex items-center ml-3">
                     <div>
@@ -55,10 +68,10 @@
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                             id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full"
-                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                            <img class="w-8 h-8 rounded-full border border-slate-200" src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="User Photo">
                         </button>
                     </div>
+
                     <!-- Dropdown menu -->
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                         id="dropdown-2">
@@ -92,6 +105,7 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>

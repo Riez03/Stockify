@@ -5,9 +5,12 @@
 <meta name="generator" content="Laravel">
 
 <title>{{ $title }}</title>
+
 @notifyCss
 @vite(['resources/css/app.css','resources/js/app.js'])
+
 <link rel="canonical" href="{{ request()->fullUrl() }}">
+<link rel="icon" type="icon" href="{{ asset($setting['app_logo']) }}">
 
 @if(isset($page->params['robots']))
     <meta name="robots" content="{{ $page->params['robots'] }}">
