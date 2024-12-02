@@ -44,7 +44,7 @@ class ProductsController extends Controller
         $data = $request->validate($this->validationRules());
 
         if($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $request->file('image')->store('images/products', 'public');
         }
 
         $this->productService->createProduct($data);

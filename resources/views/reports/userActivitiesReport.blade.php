@@ -1,3 +1,7 @@
+@php
+    $setting = app(\App\Services\Setting\SettingService::class)->getSetting();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +26,7 @@
 
         .header-content {
             display: flex;
-            align-items: center;    
+            align-items: center;
             justify-content: center;
             gap: 10px;
         }
@@ -87,7 +91,7 @@
 <body>
     <div class="header">
         <div class="header-content">
-            <h1 class="title">Stockify</h1>
+            <h1 class="title">{{ $setting['app_title'] }}</h1>
             <h1>{{ $title }}</h1>
         </div>
     </div>
@@ -125,7 +129,7 @@
         <p>
             Laporan ini digenerate secara otomatis oleh Sistem Manajemen Inventori.
             <br />
-            Stockify &copy; 2024  Semua hak dilindungi.
+            {{ $setting['app_title'] }} &copy; 2024 Semua hak dilindungi.
         </p>
     </div>
 </body>
