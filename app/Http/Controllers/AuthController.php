@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\Setting\SettingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,10 +11,18 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
+    protected $settingService;
+
+    public function __construct(SettingService $settingService) {
+        $this->settingService = $settingService;
+    }
+
+    public function index() {
+        $appData = $this->settingService->getSetting();
+        
         return view('authentication.sign-in', [
             'title' => 'Login',
+            'setApp' => $appData,    
         ]);
     }
 

@@ -80,6 +80,17 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'manajer'], function () {
     Route::prefix('manajer')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('manajer.dashboard');
+        Route::prefix('products')->group(function() {
+            Route::get('/all', [ProductsController::class, 'managerView'])->name('products.manager-view');
+            Route::get('/detail/{id}', [ProductsController::class, 'show'])->name('products.show');
+        });
+        Route::prefix('supplier')->group(function() {
+            Route::get('/all', [SuppliersController::class, 'managerView'])->name('suppliers.manager-view');
+        });
+        Route::prefix('stock')->group(function() {
+            Route::get('/transaction', [StockTransactionsController::class, 'mainTransaction'])->name('stock.transaction');
+            Route::post('/transaction/store', [StockTransactionsController::class, 'store'])->name('stock.store');
+        });
     });
 });
 

@@ -6,7 +6,9 @@ use App\Models\Categories;
 use Barryvdh\DomPDF\Facade\Pdf;
 use LaravelEasyRepository\Service;
 use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Product\ProductRepository;
 use App\Repositories\StockTransaction\StockTransactionRepository;
+use App\Repositories\Supplier\SupplierRepository;
 
 class StockTransactionServiceImplement extends Service implements StockTransactionService
 {
@@ -17,13 +19,19 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
    */
   protected $mainRepository;
   protected $categoryService;
+  protected $supplierRepository;
+  protected $productRepository;
 
   public function __construct(
     StockTransactionRepository $mainRepository,
-    CategoryRepository $categoryRepository
+    CategoryRepository $categoryRepository,
+    SupplierRepository $supplierRepository,
+    ProductRepository $productRepository,
   ) {
     $this->mainRepository = $mainRepository;
     $this->categoryService = $categoryRepository;
+    $this->supplierRepository = $supplierRepository;
+    $this->productRepository = $productRepository;
   }
 
   public function getAllStockTransaction()
@@ -54,6 +62,14 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
   public function getAllCategoryByStock()
   {
     return $this->categoryService->all();
+  }
+
+  public function getAllSuppliersByStock() {
+    return $this->supplierRepository->all();
+  }
+
+  public function getAllProductByStock() {
+    return $this->productRepository->all();
   }
 
   public function getTransactionByType($type)

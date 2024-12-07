@@ -1,6 +1,6 @@
-@props(['placeholder' => '', 'label' => '', 'name' => '', 'required' => false, 'id' => ''])
+@props(['placeholder' => '', 'label' => '', 'name' => '', 'required' => false, 'id' => '', 'colSpan' => ''])
 
-<div class="col-span-2">
+<div class="col-span-2 sm:col-span-1">
     <label 
         for="{{ $name }}"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

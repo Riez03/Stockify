@@ -6,5 +6,5 @@
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $label }}</label>
     <textarea 
         name="{{ $name }}" id="{{ $name }}" rows="5" placeholder="{{ $placeholder }}" 
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" {{ $required ? 'required' : '' }}>{{ $value ? $value : '' }}</textarea>
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:border-0 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-100" {{ $required ? 'required' : '' }}>{{ $value ? $value : '' }}</textarea>
 </div>

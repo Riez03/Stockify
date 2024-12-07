@@ -22,6 +22,14 @@ class SuppliersController extends Controller
         ]);
     }
 
+    public function managerView() {
+        $suppliers = $this->supplierService->getAllSuppliers();
+        return view('roles.manager.supplier.index', [
+            'title' => 'Supplier Management',
+            'suppliers' => $suppliers,
+        ]);
+    }
+
     public function store(Request $request) {
         $data = $request->validate([
             'name' => 'required|string|max:255',

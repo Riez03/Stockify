@@ -1,11 +1,15 @@
+@php
+    $setting = app(\App\Services\Setting\SettingService::class)->getSetting();
+@endphp
+
 @extends('layouts.default.baseof')
 @section('main')
     <div class="flex flex-col items-center justify-center px-6 pt-6 mx-auto h-screen dark:bg-gray-900">
         <div class="w-full max-w-xl p-6 space-y-5 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
             <a href="{{ url('/') }}"
                 class="flex items-center justify-center mb-8 text-3xl font-bold lg:mb-10 uppercase dark:text-white">
-                <x-tabler-stack-front class="w-10 mr-4 h-11 text-blue-500" />
-                <span class="text-blue-500">Stockify</span>
+                <img src="{{ $setApp['app_logo'] }}" alt="Application Logo" class="w-10 mr-4 h-11 text-blue-500"> 
+                <span class="text-blue-500">{{ $setApp['app_title'] }}</span>
             </a>
             <form class="mt-8 space-y-6" action="{{ route('login') }}" method="POST">
                 @csrf

@@ -40,6 +40,19 @@ class ProductsController extends Controller
         ]);
     }
 
+    public function managerView() {
+        $products = $this->productService->getAllProducts();
+        $category = $this->productService->getAllCategories();
+        $supplier = $this->productService->getAllSuppliers();
+
+        return view('roles.manager.product.index', [
+            'title' => 'Products Management',
+            'products' => $products,
+            'category' => $category,
+            'supplier' => $supplier,
+        ]);
+    }
+
     public function store(Request $request) {
         $data = $request->validate($this->validationRules());
 

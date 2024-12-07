@@ -11,6 +11,8 @@ interface StockTransactionService extends BaseService {
     public function updateTransaction($id, $data);
     public function deleteTransaction($id);
     public function getAllCategoryByStock();
+    public function getAllSuppliersByStock();
+    public function getAllProductByStock();
     public function getTransactionByType($type);
     public function getTransactionByCriteria($criteria);
     public function generatePdfByType($type);

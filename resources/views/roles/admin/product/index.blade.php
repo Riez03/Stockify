@@ -20,14 +20,12 @@
                                         <x-form.input name="name" label="Name" placeholder="Product Name" required />
                                         <x-form.input name="sku" label="Stock Keeping Unit" placeholder="0" required />
 
-                                        <x-form.select-option name="category_id" label="Category" placeholder="Select Category"
-                                            required>
+                                        <x-form.select-option name="category_id" label="Category" placeholder="Select Category" required>
                                             @foreach ($category as $categories)
                                                 <option value="{{ $categories->id }}">{{ $categories->name }}</option>
                                             @endforeach
                                         </x-form.select-option>
-                                        <x-form.select-option name="supplier_id" label="Supplier" placeholder="Select Supplier"
-                                            required>
+                                        <x-form.select-option name="supplier_id" label="Supplier" placeholder="Select Supplier" required>
                                             @foreach ($supplier as $suppliers)
                                                 <option value="{{ $suppliers->id }}">{{ $suppliers->name }}</option>
                                             @endforeach

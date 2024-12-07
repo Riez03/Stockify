@@ -8,7 +8,7 @@
         <x-sidebar.sidebar-menu-dropdown-item routeName="categories.index" title="Product Category" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="attributes.index" title="Product Attributes" />
     </x-dropdown-menu>
-    <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.transaction*">
+    <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.*">
         <x-sidebar.sidebar-menu-dropdown-item routeName="stock.index" title="History Transactions" />
         <x-sidebar.sidebar-menu-dropdown-item routeName="stock.opname" title="Stock Opname" />
     </x-dropdown-menu>
@@ -18,9 +18,12 @@
 @endif
 
 @if ($userRole == 'Manajer Gudang')
-    
+    <x-sidebar.sidebar-list href="products.manager-view" label="Products" icon="heroicon-o-document-duplicate" />
+    <x-sidebar.sidebar-list href="suppliers.manager-view" label="Supplier" icon="heroicon-m-user-group" />
+    <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.*">
+        <x-sidebar.sidebar-menu-dropdown-item routeName="stock.transaction" title="Transactions" />
+    </x-dropdown-menu>
 @endif
 
 @if ($userRole == 'Staff Gudang')
-    
 @endif

@@ -17,7 +17,6 @@ class StockTransactionsController extends Controller
     private function transactionValidation() {
         return [
             'product_id' => 'required|exists:products,id',
-            'user_id' => 'required|exists:users,id',
             'type' => 'required|in:Masuk,Keluar',
             'quantity' => 'required|integer|',
             'date' => 'nullable|date',
@@ -65,6 +64,21 @@ class StockTransactionsController extends Controller
         ]);
     }
 
+    public function mainTransaction(Request $request) {
+        $categoriesData = $this->stockTransactionService->getAllCategoryByStock();
+        $suppliersData = $this->stockTransactionService->getAllSuppliersByStock();
+        $productData = $this->stockTransactionService->getAllProductByStock();
+        $stockByType = $this->stockTransactionService->getTransactionByType($request->type);
+
+        return view('roles.manager.stock.index', [
+            'title' => 'Management Stock Transaction',
+            'category' => $categoriesData,
+            'supplier' => $suppliersData,
+            'product' => $productData,
+            'stockByType' => $stockByType,
+        ]);
+    }
+
     public function opnameStockView() {
         $minimumStock = $this->stockTransactionService->getMinimumQuantityStock();
 
@@ -76,10 +90,16 @@ class StockTransactionsController extends Controller
 
     public function store(Request $request) {
         $transaction = $request->validate($this->transactionValidation());
+        $transaction['user_id'] = auth()->id();        
+
         $minimumStock = $this->stockTransactionService->getMinimumQuantityStock();
 
-        if ($transaction['quantity'] - $request->quantity < $minimumStock) {
-            return redirect()->back()->with('error', 'Jumlah stok yang tersedia tidak cukup untuk transaksi ini. Stok minimum: ' . $minimumStock);
+        if ($transaction['quantity'] < $minimumStock) {
+            notify()->preset('error', [
+                'title' => 'Minimum Quantity Not Reached',
+                'message' => 'Stock Minimum Quantity is below than ' . $minimumStock
+            ]);
+            return redirect()->back()->with('error');
         }
 
         $this->stockTransactionService->createTransaction($transaction, $request->quantity);
@@ -88,25 +108,8 @@ class StockTransactionsController extends Controller
             'message' => 'Stock Transaction has been created successfully'
         ]);
 
-        return redirect()->route('transaction.index')->with('success', 'Stock Transaction created successfully.');
+        return redirect()->route('stock.transaction')->with('success');
     }
-
-    // public function performStockOpname($productId, $actualQty) {
-    //     $transaction = $this->stockTransactionService->find($productId);
-    //     $difference = $actualQty - $transaction->quantity;
-
-    //     $transactionType = $difference > 0 ? 'Masuk' : 'Keluar';
-    //     $this->stockTransactionService->createTransaction([
-    //         'product_id' => $productId,
-    //         'type' => $transactionType,
-    //         'quantity' => abs($difference),
-    //         'status' => 'Diterima',
-    //         'notes' => 'Stock Opname Adjustment'
-    //     ]);
-
-    //     $transaction->quantity = $actualQty;
-    //     $transaction->save();
-    // }
 
     public function downloadReportByType(Request $request) {
         $type = $request->input('type');

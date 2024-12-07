@@ -1,3 +1,7 @@
+@php
+    $setting = app(\App\Services\Setting\SettingService::class)->getSetting();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +29,11 @@
             align-items: center;    
             justify-content: center;
             gap: 10px;
+        }
+
+        .title {
+            color: #3774e3;
+            text-transform: uppercase;
         }
 
         .logo {
@@ -88,7 +97,7 @@
 <body>
     <div class="header">
         <div class="header-content">
-            <img src="../public/images/icon.webp" alt="Company Logo" class="logo">
+            <h1 class="title">{{ $setting['app_title'] }}</h1>
             <h1>{{ $title }}</h1>
         </div>
     </div>
@@ -127,7 +136,7 @@
         <p>
             Laporan ini digenerate secara otomatis oleh Sistem Manajemen Inventori.
             <br />
-            Stockify &copy; 2024  Semua hak dilindungi.
+            {{ $setting['app_title'] }} &copy; 2024  Semua hak dilindungi.
         </p>
     </div>
 </body>

@@ -55,6 +55,12 @@ return [
             'model' => 'toast',
             'title' => 'User Deleted',
         ],
+        'error' => [
+            'message' => '',
+            'type' => 'error',
+            'model' => 'toast',
+            'title' => '',
+        ],
     ],
 
 ];

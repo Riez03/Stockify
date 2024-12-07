@@ -50,8 +50,10 @@ class DashboardController extends Controller
         $getAllStock = $this->stockTransactionService->getAllStockTransaction();
         $MinQuantity = $this->stockTransactionService->getMinimumQuantityStock();
 
-        $totalIncomingTransaction = $this->stockTransactionService->getTransactionByTypeAndPeriod('Masuk', 30);
-        $totalOutgoingTransaction = $this->stockTransactionService->getTransactionByTypeAndPeriod('Keluar', 30);
+        $IncomingTransactionInMonth = $this->stockTransactionService->getTransactionByTypeAndPeriod('Masuk', 30);
+        $outgoingTransactionInMonth = $this->stockTransactionService->getTransactionByTypeAndPeriod('Keluar', 30);
+        $IncomingTransactionInDay = $this->stockTransactionService->getTransactionByTypeAndPeriod('Masuk', 1);
+        $outgoingTransactionInDay = $this->stockTransactionService->getTransactionByTypeAndPeriod('Keluar', 1);
 
         $totalLowStock = $getAllStock->filter(function ($stock) use ($MinQuantity) {
             return $stock->quantity < $MinQuantity || $stock->quantity == $MinQuantity; 
@@ -63,8 +65,8 @@ class DashboardController extends Controller
                 'activities' => $activitiesUser,
                 'totalProducts' => count($getAllProducts),
                 'totalLowStock' => $totalLowStock,
-                'incomingTransaction' => $totalIncomingTransaction,
-                'outgoingTransaction' => $totalOutgoingTransaction,
+                'incomingTransaction' => $IncomingTransactionInMonth,
+                'outgoingTransaction' => $outgoingTransactionInMonth,
                 'transactionData' => $transactionLastSixMonth,
             ]);
         } elseif (Auth::user()->role == "Staff Gudang") {
@@ -72,8 +74,11 @@ class DashboardController extends Controller
                 'title' => 'Dashboard Staff Gudang',
             ]);
         } elseif (Auth::user()->role == "Manajer Gudang") {
-            return view('', [
-                'title' => 'Dashboard Manajer Gudang'
+            return view('roles.manager.index', [
+                'title' => 'Dashboard Manajer Gudang',
+                'incomingTransaction' => $IncomingTransactionInDay,
+                'outgoingTransaction' => $outgoingTransactionInDay,
+                'lowStock' => $totalLowStock,
             ]);
         }
     }
