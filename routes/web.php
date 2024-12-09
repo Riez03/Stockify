@@ -29,6 +29,11 @@ Route::get('/maintenance', function () {
     ]);
 });
 
+Route::group(['middleware' => 'admin, staff, manajer'], function () {
+    Route::get('/transaction/preview/reportByCriteria', [StockTransactionsController::class, 'downloadReportByCriteria'])->name('criteriaReport');
+    Route::get('/transaction/preview/reportTransaction', [StockTransactionsController::class, 'downloadReportByType'])->name('transactionReport');
+});
+
 Route::group(['middleware' => 'admin'], function () {
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -42,7 +47,6 @@ Route::group(['middleware' => 'admin'], function () {
             Route::put('/{id}', [ProductsController::class, 'update'])->name('products.update');
             Route::get('/{id}/edit', [ProductsController::class, 'edit'])->name('products.edit');
             Route::delete('/{id}', [ProductsController::class, 'destroy'])->name('products.destroy');
-            Route::get('/spreadsheet/preview', [ProductsController::class, ''])->name('');
             Route::post('/spreadsheet/import', [ProductsController::class, 'importSpreadsheet'])->name('products.import');
             Route::post('/spreadsheet/export', [ProductsController::class, 'exportSpreadsheet'])->name('products.export');
         });
@@ -63,8 +67,6 @@ Route::group(['middleware' => 'admin'], function () {
         });
         Route::prefix('stock')->group(function () {
             Route::get('/transaction/history', [StockTransactionsController::class, 'index'])->name('stock.index');
-            Route::get('/transaction/history/generate/stock-report', [StockTransactionsController::class, 'downloadReportByCriteria'])->name('stock.report-type');
-            Route::get('/transaction/history/generate/transaction-report', [StockTransactionsController::class, 'downloadReportByType'])->name('stock.transaction-report');
             Route::get('/opname', [StockTransactionsController::class, 'opnameStockView'])->name('stock.opname');
             Route::post('update/minimum-quantity', [StockTransactionsController::class, 'updateStockMinimum'])->name('stock.update-minimum');
         });

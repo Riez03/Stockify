@@ -87,8 +87,8 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
     $data = $this->mainRepository->filterByType($type);
 
     $typeLabel = match ($type) {
-      'masuk' => 'Barang Masuk',
-      'keluar' => 'Barang Keluar',
+      'Masuk' => 'Barang Masuk',
+      'Keluar' => 'Barang Keluar',
       default => 'Semua Transaksi',
     };
 

@@ -26,10 +26,14 @@ class StockTransactionsController extends Controller
     }
 
     private function isPdfRequest(Request $request) {
-        return in_array($request->input('action'), ['print-transaction', 'print-stock']);
+        return in_array($request->input('action'), [
+            'print-transaction',
+            'print-stock', 
+            'printTypeManager'
+        ]);
     }
 
-    private function handlePdfGenerate(Request $request, $filters) {
+    private function handlePdfGenerate(Request $request, $filters = []) {
         $action = $request->input('action', 'view');
 
         if ($action === 'print-transaction') {
@@ -42,15 +46,16 @@ class StockTransactionsController extends Controller
     public function index(Request $request) {
         $categoriesData = $this->stockTransactionService->getAllCategoryByStock();
         $stockByType = $this->stockTransactionService->getTransactionByType($request->type);
-        
         $filters = $request->only(['periods', 'categories', 'start_date', 'end_date']);
-        $stockByCriteria = $this->stockTransactionService->getTransactionByCriteria($filters);
         
         if (isset($filters['categories'])) {
             $categoryName = $filters['categories'];
             $category = Categories::where('name', $categoryName)->first();
             $filters['categories'] = $category ? $category->id : null;
         }
+
+        // Moving the variable layout may result in errors in certain functions   
+        $stockByCriteria = $this->stockTransactionService->getTransactionByCriteria($filters);
 
         if($this->isPdfRequest($request)) {
             return $this->handlePdfGenerate($request, $filters);
@@ -64,11 +69,24 @@ class StockTransactionsController extends Controller
         ]);
     }
 
-    public function mainTransaction(Request $request) {
+    public function mainTransaction(Request $request) { 
         $categoriesData = $this->stockTransactionService->getAllCategoryByStock();
         $suppliersData = $this->stockTransactionService->getAllSuppliersByStock();
         $productData = $this->stockTransactionService->getAllProductByStock();
         $stockByType = $this->stockTransactionService->getTransactionByType($request->type);
+        $filters = $request->only(['periods', 'categories', 'start_date', 'end_date']);
+        
+        if (isset($filters['categories'])) {
+            $categoryName = $filters['categories'];
+            $category = Categories::where('name', $categoryName)->first();
+            $filters['categories'] = $category ? $category->id : null;
+        }
+
+        $stockByCriteria = $this->stockTransactionService->getTransactionByCriteria($filters);
+
+        if($this->isPdfRequest($request)) {
+            return $this->handlePdfGenerate($request, $filters);
+        }
 
         return view('roles.manager.stock.index', [
             'title' => 'Management Stock Transaction',
@@ -76,6 +94,7 @@ class StockTransactionsController extends Controller
             'supplier' => $suppliersData,
             'product' => $productData,
             'stockByType' => $stockByType,
+            'stockByCriteria' => $stockByCriteria,
         ]);
     }
 
