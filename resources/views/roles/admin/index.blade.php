@@ -105,7 +105,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="text-center text-sm text-blue-700 font-medium">All Data Avaiable on Report</div>
                         @endif
                     </ul>
                 </div>

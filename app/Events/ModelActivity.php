@@ -19,14 +19,14 @@ class ModelActivity
     /**
      * Create a new event instance.
      */
-    public function __construct($user, $action, $entity, $entity_name, $message, $timestamp)
+    public function __construct($user, $action, $entity, $entity_name, $message)
     {
         $this->user = $user;
         $this->action = $action;
         $this->entity = $entity;
         $this->entity_name = $entity_name;
         $this->message = $message;
-        $this->timestamp = $timestamp ?? now();
+        $this->timestamp = now();
     }
 
     /**

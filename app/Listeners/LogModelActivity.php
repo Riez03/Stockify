@@ -37,9 +37,13 @@ class LogModelActivity
 
         if(File::exists($filePath)) {
             $activities = json_decode(File::get($filePath), true);
+
+            if(!is_array($activities)) {
+                $activities = [];
+            }
         }
 
-        $activities = $activity;
+        $activities[] = $activity;
 
         File::put($filePath, json_encode($activities, JSON_PRETTY_PRINT));
     }

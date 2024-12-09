@@ -29,9 +29,12 @@ Route::get('/maintenance', function () {
     ]);
 });
 
-Route::group(['middleware' => 'admin, staff, manajer'], function () {
+// Multi-access Route
+Route::group(['middleware' => 'admin, manajer'], function () {
     Route::get('/transaction/preview/reportByCriteria', [StockTransactionsController::class, 'downloadReportByCriteria'])->name('criteriaReport');
     Route::get('/transaction/preview/reportTransaction', [StockTransactionsController::class, 'downloadReportByType'])->name('transactionReport');
+    
+    Route::get('/stock/opname', [StockTransactionsController::class, 'opnameStockView'])->name('stock.opname');
 });
 
 Route::group(['middleware' => 'admin'], function () {
@@ -67,13 +70,11 @@ Route::group(['middleware' => 'admin'], function () {
         });
         Route::prefix('stock')->group(function () {
             Route::get('/transaction/history', [StockTransactionsController::class, 'index'])->name('stock.index');
-            Route::get('/opname', [StockTransactionsController::class, 'opnameStockView'])->name('stock.opname');
             Route::post('update/minimum-quantity', [StockTransactionsController::class, 'updateStockMinimum'])->name('stock.update-minimum');
         });
 
         // Define a custom route
         Route::get('/user/activities/report', [DashboardController::class, 'downloadUserActivityReport'])->name('user.activities-report');
-
         Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
         Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
     });
