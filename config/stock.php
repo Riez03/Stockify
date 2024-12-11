@@ -12,5 +12,5 @@ return [
     |
     */
 
-    'minimum_stock' => 15,
+    'minimum_stock' => 10,
 ];

@@ -48,16 +48,23 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
 
     public function update($id, $data) {
         $transaction = $this->model->find($id);
-        $transaction->update($data);
+        $originalData = $transaction->toArray();
 
-        event(new ModelActivity(
-            auth()->user(), 
-            'update', 
-            'Stock_Transaction', 
-            $transaction->products->name, 
-            `Stock Product with Type "$transaction->type" updated successfuly`,
-            $transaction->created_at,
-        ));
+        $transaction->update($data);
+        $updatedData = $transaction->toArray();
+
+        $changes = array_diff_assoc($updatedData, $originalData);
+
+        if(!empty($changes)) {
+            event(new ModelActivity(
+                auth()->user(), 
+                'update', 
+                'Stock_Transaction', 
+                $transaction->products->name, 
+                "Stock Product with Type $transaction->type updated successful",
+                $transaction->created_at,
+            ));
+        }
 
         return $transaction;
     }

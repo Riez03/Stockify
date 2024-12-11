@@ -14,5 +14,21 @@
         "entity_name": "Lacostvre",
         "message": "Product has been updated successfuly",
         "timestamp": "2024-12-09T00:46:09.000000Z"
+    },
+    {
+        "user_id": "Francisca Hamill",
+        "action": "update",
+        "entity": "Stock_Transaction",
+        "entity_name": "Kemeja Hitam",
+        "message": "Stock Product with Type Masuk updated successful",
+        "timestamp": "2024-12-11T05:26:53.139977Z"
+    },
+    {
+        "user_id": "Francisca Hamill",
+        "action": "update",
+        "entity": "Stock_Transaction",
+        "entity_name": "Outfit Kerajaan",
+        "message": "Stock Product with Type Masuk updated successful",
+        "timestamp": "2024-12-11T05:26:53.165354Z"
     }
 ]

@@ -100,10 +100,12 @@ class StockTransactionsController extends Controller
 
     public function opnameStockView() {
         $minimumStock = $this->stockTransactionService->getMinimumQuantityStock();
+        $allTransaction = $this->stockTransactionService->getAllStockTransaction();
 
         return view('roles.admin.transaction.stock-opname', [
             'title' => 'Stock Opname',
             'minimumStock' => $minimumStock,
+            'transaction' => $allTransaction,
         ]);
     }
 
@@ -128,6 +130,31 @@ class StockTransactionsController extends Controller
         ]);
 
         return redirect()->route('stock.transaction')->with('success');
+    }
+
+    public function opnameData(Request $request) {
+        $stockId = $request->input('stock_id');
+        $types = $request->input('type');
+        $status = $request->input('status');
+        $quantity = $request->input('minimum_stock');
+
+        foreach($stockId as $index => $id) {
+            $data = array_filter([
+                'type' => $types[$index] ?? null,
+                'status' => $status[$index] ?? null,
+                'quantity' => $quantity[$index] ?? null,
+            ]);
+
+            if(!empty($data)) {
+                $this->stockTransactionService->updateTransaction($id, $data);
+                notify()->preset('user-created', [
+                    'title' => 'Stock Data Updated',
+                    'message' => 'Stock Data has been updated successfully'
+                ]);
+            }
+        }
+
+        return redirect()->route('stock.opname')->with('success');
     }
 
     public function downloadReportByType(Request $request) {

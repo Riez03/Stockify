@@ -22,6 +22,7 @@
     <x-sidebar.sidebar-list href="suppliers.manager-view" label="Supplier" icon="heroicon-m-user-group" />
     <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.*">
         <x-sidebar.sidebar-menu-dropdown-item routeName="stock.transaction" title="Transactions" />
+        <x-sidebar.sidebar-menu-dropdown-item routeName="stock.opname" title="Stock Opname" />
     </x-dropdown-menu>
 @endif
 
