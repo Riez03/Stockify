@@ -30,7 +30,7 @@ Route::get('/maintenance', function () {
 });
 
 // Multi-access Route
-Route::group(['middleware' => 'admin, manajer'], function () {
+Route::group(['middleware' => ['admin', 'manajer']], function () {
     Route::get('/transaction/preview/reportByCriteria', [StockTransactionsController::class, 'downloadReportByCriteria'])->name('criteriaReport');
     Route::get('/transaction/preview/reportTransaction', [StockTransactionsController::class, 'downloadReportByType'])->name('transactionReport');
 });
@@ -83,6 +83,7 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'manajer'], function () {
     Route::prefix('manajer')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('manajer.dashboard');
+        
         Route::prefix('products')->group(function() {
             Route::get('/all', [ProductsController::class, 'managerView'])->name('products.manager-view');
             Route::get('/detail/{id}', [ProductsController::class, 'show'])->name('products.show');
@@ -92,7 +93,8 @@ Route::group(['middleware' => 'manajer'], function () {
         });
         Route::prefix('stock')->group(function() {
             Route::get('/transaction', [StockTransactionsController::class, 'mainTransaction'])->name('stock.transaction');
-            // Route::get('/opname', [StockTransactionsController::class, 'opnameStockManagerView'])->name('stock.manager-opname');
+            Route::get('/opname', [StockTransactionsController::class, 'opnameStockManagerView'])->name('stock.manager-opname');
+            Route::post('/stock/opname/update', [StockTransactionsController::class, 'opnameData'])->name('stock.update');
             Route::post('/transaction/store', [StockTransactionsController::class, 'store'])->name('stock.store');
         });
     });

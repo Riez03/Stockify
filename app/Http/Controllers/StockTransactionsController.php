@@ -109,6 +109,15 @@ class StockTransactionsController extends Controller
         ]);
     }
 
+    public function opnameStockManagerView() {
+        $allTransaction = $this->stockTransactionService->getAllStockTransaction();
+
+        return view('roles.manager.stock.opname', [
+            'title' => 'Stock Opname',
+            'transaction' => $allTransaction,
+        ]);
+    }
+
     public function store(Request $request) {
         $transaction = $request->validate($this->transactionValidation());
         $transaction['user_id'] = auth()->id();        
@@ -154,7 +163,13 @@ class StockTransactionsController extends Controller
             }
         }
 
-        return redirect()->route('stock.opname')->with('success');
+        $redirectByAuth = auth()->user()->role;
+
+        if($redirectByAuth === 'Admin') {
+            return redirect()->route('stock.opname')->with('success');
+        } elseif ($redirectByAuth === 'Manajer Gudang') {
+            return redirect()->route('stock.manager-opname')->with('success');
+        }
     }
 
     public function downloadReportByType(Request $request) {

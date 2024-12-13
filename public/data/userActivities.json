@@ -16,19 +16,19 @@
         "timestamp": "2024-12-09T00:46:09.000000Z"
     },
     {
-        "user_id": "Francisca Hamill",
+        "user_id": "Ms. Bella Upton",
         "action": "update",
         "entity": "Stock_Transaction",
-        "entity_name": "Kemeja Hitam",
-        "message": "Stock Product with Type Masuk updated successful",
-        "timestamp": "2024-12-11T05:26:53.139977Z"
+        "entity_name": "Outfit Kerajaan",
+        "message": "Stock Product with Type Keluar updated successful",
+        "timestamp": "2024-12-13T03:50:05.432298Z"
     },
     {
-        "user_id": "Francisca Hamill",
+        "user_id": "Ms. Bella Upton",
         "action": "update",
         "entity": "Stock_Transaction",
         "entity_name": "Outfit Kerajaan",
         "message": "Stock Product with Type Masuk updated successful",
-        "timestamp": "2024-12-11T05:26:53.165354Z"
+        "timestamp": "2024-12-13T03:53:48.760595Z"
     }
 ]
