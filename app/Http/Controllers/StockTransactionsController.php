@@ -118,6 +118,19 @@ class StockTransactionsController extends Controller
         ]);
     }
 
+    public function confirmationStockView() {
+        $getAllStock = $this->stockTransactionService->getAllStockTransaction();
+
+        $getPendingStatus = $getAllStock->filter(function($item) {
+            return $item->status === 'Pending';
+        });
+
+        return view('roles.staff.confirmation-stock', [
+            'title' => 'Stock Check Confirmation',
+            'data' => $getPendingStatus,
+        ]);
+    }
+
     public function store(Request $request) {
         $transaction = $request->validate($this->transactionValidation());
         $transaction['user_id'] = auth()->id();        
@@ -141,6 +154,22 @@ class StockTransactionsController extends Controller
         return redirect()->route('stock.transaction')->with('success');
     }
 
+    public function stockConfirmation(Request $request, $id) {
+        $validated = $request->validate([
+            'status' => 'required|in:Diterima,Ditolak,Dikeluarkan',
+        ]);
+    
+        $stock = $this->stockTransactionService->getTransactionByProduct($id);
+        $stock->status = $validated['status'];
+        $stock->save();
+    
+        notify()->preset('user-created', [
+            'title' => 'Stock Data Updated',
+            'message' => 'Stock Data has been updated successfully',
+        ]);
+        return redirect()->route('stock.observe')->with('success');
+    }
+    
     public function opnameData(Request $request) {
         $stockId = $request->input('stock_id');
         $types = $request->input('type');

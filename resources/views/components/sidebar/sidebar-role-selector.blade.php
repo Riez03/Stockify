@@ -27,4 +27,7 @@
 @endif
 
 @if ($userRole == 'Staff Gudang')
+    <x-dropdown-menu title="Stock" icon="heroicon-m-square-3-stack-3d" routeName="stock.*">
+        <x-sidebar.sidebar-menu-dropdown-item routeName="stock.observe" title="Confirmation Stock" />
+    </x-dropdown-menu>
 @endif

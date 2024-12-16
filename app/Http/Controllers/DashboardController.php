@@ -45,11 +45,13 @@ class DashboardController extends Controller
     public function index() {
         $getAllProducts = $this->productService->getAllProducts();
         $activitiesUser = $this->userService->getAllUserActivities();
-        $transactionLastSixMonth = $this->stockTransactionService->getTransactionByMonthAndYear();
-
         $getAllStock = $this->stockTransactionService->getAllStockTransaction();
         $MinQuantity = $this->stockTransactionService->getMinimumQuantityStock();
 
+        $incomingTransactionByType = $this->stockTransactionService->getTransactionByType('Masuk');
+        $outgoingTransactionByType = $this->stockTransactionService->getTransactionByType('Keluar');
+
+        $transactionLastSixMonth = $this->stockTransactionService->getTransactionByMonthAndYear();
         $IncomingTransactionInMonth = $this->stockTransactionService->getTransactionByTypeAndPeriod('Masuk', 30);
         $outgoingTransactionInMonth = $this->stockTransactionService->getTransactionByTypeAndPeriod('Keluar', 30);
         $IncomingTransactionInDay = $this->stockTransactionService->getTransactionByTypeAndPeriod('Masuk', 1);
@@ -72,6 +74,8 @@ class DashboardController extends Controller
         } elseif (Auth::user()->role == "Staff Gudang") {
             return view('roles.staff.index', [
                 'title' => 'Dashboard Staff Gudang',
+                'incomingItem' => count($incomingTransactionByType),
+                'outgoingItem' => count($outgoingTransactionByType),
             ]);
         } elseif (Auth::user()->role == "Manajer Gudang") {
             return view('roles.manager.index', [

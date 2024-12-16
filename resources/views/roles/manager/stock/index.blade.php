@@ -67,12 +67,12 @@
                 @endslot
                 
                 @slot('header')
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">No.</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Product</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Type</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Quantity</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">User</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Status</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">No.</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Product</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Type</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Quantity</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">User</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Status</th>
                 @endslot
 
                 @forelse ($stockByType as $transaction)
@@ -87,17 +87,25 @@
                         $statusClass = $statusClasses[$transaction->status] ?? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200';
                     @endphp
                     <tr>
-                        <td class="p-4 text-sm font-normal text-gray-900 border-b whitespace-nowrap dark:border-gray-500 dark:text-white">
-                            {{ $loop->index + 1 }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->products->name }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->type }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->quantity }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                        <td class="p-4 text-sm font-normal text-center text-gray-900 border-b whitespace-nowrap dark:border-gray-500 dark:text-white">
+                            {{ $loop->index + 1 }}
+                        </td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                            {{ $transaction->products->name }}
+                        </td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                            <span class="bg-lime-400 text-lime-800 dark:text-white dark:bg-lime-700 py-1 px-3 rounded-full text-xs font-medium">
+                                {{ $transaction->type }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                            <span class="bg-blue-400 text-blue-800 dark:text-white dark:bg-blue-700 py-1 px-3 rounded-full text-sm font-medium">
+                                {{ $transaction->quantity }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
                             {{ $transaction->users->name }}</td>
-                        <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap border-b dark:border-gray-500">
+                        <td class="p-4 text-xs font-medium text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500">
                             <span class="py-1 px-2 rounded-full {{ $statusClass }}">
                                 {{ $transaction->status }}
                             </span>
@@ -150,13 +158,13 @@
                 @endslot
                 
                 @slot('header')
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">No.</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Product</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Category</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">User</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Quantity</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Date</th>
-                    <th class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Status</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">No.</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Product</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Category</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">User</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Quantity</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Date</th>
+                    <th class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">Status</th>
                 @endslot
 
                 @forelse ($stockByCriteria as $transaction)
@@ -171,19 +179,23 @@
                         $statusClass = $statusClasses[$transaction->status] ?? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200';
                     @endphp
                     <tr>
-                        <td class="p-4 text-sm font-normal text-gray-900 border-b whitespace-nowrap dark:border-gray-500 dark:text-white">
-                            {{ $loop->index + 1 }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->products->name }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->products->categories->name }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->users->name }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ $transaction->quantity }}</td>
-                        <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            {{ \Carbon\Carbon::parse($transaction->date)->translatedFormat('d F Y') }}</td>
-                        <td class="p-4 text-xs font-medium text-gray-900 whitespace-nowrap border-b dark:border-gray-500">
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center border-b whitespace-nowrap dark:border-gray-500 dark:text-white">{{ $loop->index + 1 }}</td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">{{ $transaction->products->name }}</td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                            <span class="bg-cyan-300 text-cyan-800 dark:text-white dark:bg-cyan-700 py-1 px-3 rounded-md text-sm font-medium">
+                                {{ $transaction->products->categories->name }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">{{ $transaction->users->name }}</td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                            <span class="bg-blue-400 text-blue-800 dark:text-white dark:bg-blue-700 py-1 px-3 rounded-full text-sm font-medium">
+                                {{ $transaction->quantity }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
+                            {{ \Carbon\Carbon::parse($transaction->date)->translatedFormat('d F Y') }}
+                        </td>
+                        <td class="p-4 text-xs font-medium text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500">
                             <span class="py-1 px-2 rounded-full {{ $statusClass }}">
                                 {{ $transaction->status }}
                             </span>

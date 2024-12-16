@@ -103,6 +103,11 @@ Route::group(['middleware' => 'manajer'], function () {
 Route::group(['middleware' => 'staff'], function () {
     Route::prefix('staff')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('staff.dashboard');
+
+        Route::prefix('stock')->group(function() {
+            Route::get('/observe', [StockTransactionsController::class, 'confirmationStockView'])->name('stock.observe');
+            Route::post('/observe/confirmation/{id}', [StockTransactionsController::class, 'stockConfirmation'])->name('stock.update-confirmation');
+        });
     });
 });
 
