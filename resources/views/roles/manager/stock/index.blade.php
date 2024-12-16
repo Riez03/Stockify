@@ -182,7 +182,7 @@
                         <td class="p-4 text-sm font-normal text-gray-900 text-center border-b whitespace-nowrap dark:border-gray-500 dark:text-white">{{ $loop->index + 1 }}</td>
                         <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">{{ $transaction->products->name }}</td>
                         <td class="p-4 text-sm font-normal text-gray-900 text-center whitespace-nowrap border-b dark:border-gray-500 dark:text-white">
-                            <span class="bg-cyan-300 text-cyan-800 dark:text-white dark:bg-cyan-700 py-1 px-3 rounded-md text-sm font-medium">
+                            <span class="bg-cyan-300 text-cyan-800 dark:text-white dark:bg-cyan-700 py-1 px-3 rounded-full text-xs font-medium">
                                 {{ $transaction->products->categories->name }}
                             </span>
                         </td>
