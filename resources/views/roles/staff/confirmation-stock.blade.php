@@ -94,7 +94,6 @@
                     @endforelse
                 </x-table.table-layout>
 
-                
             </section>
         </div>
     @endsection

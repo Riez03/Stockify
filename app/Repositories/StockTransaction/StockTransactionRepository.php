@@ -6,6 +6,7 @@ use LaravelEasyRepository\Repository;
 
 interface StockTransactionRepository extends Repository {
     public function all();
+    public function allNoPaginate();
     public function find($id);
     public function create($data);
     public function update($id, $data);

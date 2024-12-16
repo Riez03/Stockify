@@ -39,6 +39,11 @@ class StockTransactionServiceImplement extends Service implements StockTransacti
     return $this->mainRepository->all();
   }
 
+  public function getAllStockWithoutPageRestrict()
+  {
+    return $this->mainRepository->allNoPaginate();
+  }
+
   public function getTransactionByProduct($id)
   {
     return $this->mainRepository->find($id);

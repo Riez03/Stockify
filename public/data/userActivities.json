@@ -30,13 +30,5 @@
         "entity_name": "Outfit Kerajaan",
         "message": "Stock Product with Type Masuk updated successful",
         "timestamp": "2024-12-13T03:53:48.760595Z"
-    },
-    {
-        "user_id": "Ms. Bella Upton",
-        "action": "create",
-        "entity": "Stock_Transaction",
-        "entity_name": "Lacostvre",
-        "message": null,
-        "timestamp": "2024-12-16T06:44:33.601178Z"
     }
 ]

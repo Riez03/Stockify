@@ -119,8 +119,7 @@ class StockTransactionsController extends Controller
     }
 
     public function confirmationStockView() {
-        $getAllStock = $this->stockTransactionService->getAllStockTransaction();
-
+        $getAllStock = $this->stockTransactionService->getAllStockWithoutPageRestrict();
         $getPendingStatus = $getAllStock->filter(function($item) {
             return $item->status === 'Pending';
         });

@@ -6,6 +6,7 @@ use LaravelEasyRepository\BaseService;
 
 interface StockTransactionService extends BaseService {
     public function getAllStockTransaction();
+    public function getAllStockWithoutPageRestrict();
     public function getTransactionByProduct($id);
     public function createTransaction($data);
     public function updateTransaction($id, $data);

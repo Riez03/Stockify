@@ -27,6 +27,10 @@ class StockTransactionRepositoryImplement extends Eloquent implements StockTrans
         return $this->model->with(['products', 'users'])->simplePaginate(5);
     }
 
+    public function allNoPaginate() {
+        return $this->model->with(['products', 'users'])->get();
+    }
+
     public function find($id) {
         return $this->model->findOrFail($id);
     }
