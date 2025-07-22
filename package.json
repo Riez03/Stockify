@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "vercel-build": "npm run build"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
@@ -19,3 +20,4 @@
         "flowbite-typography": "^1.0.4"
     }
 }
+
