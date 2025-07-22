@@ -1,12 +1,9 @@
 {
   "version": 2,
-  "public": true,
-  "outputDirectory": "public",
-  "installCommand": "composer install --no-dev --optimize-autoloader",
   "builds": [
     {
       "src": "public/index.php",
-      "use": "@vercel/php"
+      "use": "@php-zero/vercel-php"
     }
   ],
   "routes": [
@@ -16,6 +13,7 @@
     }
   ],
   "env": {
+    "APP_ENV": "production",
     "APP_DEBUG": "false"
   }
 }
